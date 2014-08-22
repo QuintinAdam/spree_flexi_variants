@@ -1,24 +1,8 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'spree', '~> 1.3.2'
-
-if RUBY_VERSION < "1.9"
-  gem "ruby-debug"
-else
-  gem "ruby-debug19"
+group :development, :test do
+  gem 'spree', github: 'spree/spree'
+  gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
 end
 
-group :test do
-  gem 'rspec-rails', '2.12.0'
-  gem 'sqlite3'
-  gem 'factory_girl_rails', '~> 1.7.0'
-  gem 'ffaker'
-  gem 'capybara', '2.0.2'
-  gem 'launchy'
-  gem 'pry'
-end
-
-group :assets do
-  gem 'coffee-rails'
-end
 gemspec
