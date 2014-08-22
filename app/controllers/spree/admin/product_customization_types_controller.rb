@@ -76,7 +76,7 @@ module Spree
       @product.product_customization_types.each do |pct|
         selected_product_customization_types << pct
       end
-      @available_product_customization_types.delete_if {|pct| selected_product_customization_types.include? pct}
+      @available_product_customization_types.to_a.delete_if {|pct| selected_product_customization_types.include? pct}
     end
   end
 end
