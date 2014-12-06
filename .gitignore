@@ -10,3 +10,7 @@ nbproject
 doc/notes.txt
 Gemfile.lock
 spec/dummy
+
+
+.ruby-version
+.ruby-gemset
