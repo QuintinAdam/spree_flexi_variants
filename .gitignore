@@ -12,5 +12,6 @@ Gemfile.lock
 spec/dummy
 
 
+coverage/
 .ruby-version
 .ruby-gemset
