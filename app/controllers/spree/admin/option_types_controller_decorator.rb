@@ -24,7 +24,7 @@ module Spree
 
     private
     def set_available_ad_hoc_option_types
-      @available_option_types = OptionType.all
+      @available_option_types = OptionType.all.to_a
       selected_option_types = []
       @product.ad_hoc_option_types.each do |option|
         selected_option_types << option.option_type
