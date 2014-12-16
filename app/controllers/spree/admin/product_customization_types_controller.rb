@@ -71,7 +71,7 @@ module Spree
     end
 
     def set_available_product_customization_types
-      @available_product_customization_types = ProductCustomizationType.all
+      @available_product_customization_types = ProductCustomizationType.all.to_a
       selected_product_customization_types = []
       @product.product_customization_types.each do |pct|
         selected_product_customization_types << pct
