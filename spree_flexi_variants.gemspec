@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_flexi_variants'
-  s.version     = '2.4.0'
+  s.version     = '3.0.0'
   s.summary     = 'Add gem summary here'
   #s.description = 'Add (optional) gem description here'
   s.required_ruby_version = '>= 1.9.3'
@@ -16,17 +16,19 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
+  spree_version = '~> 3.0.0'
+
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
-  s.add_dependency 'spree', '>= 2.4'
+  s.add_dependency 'spree', spree_version
 
-  s.add_development_dependency 'capybara',           '~> 2.1'
+  s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'coveralls'
-  s.add_development_dependency 'database_cleaner',   '~> 1.0.1'
-  s.add_development_dependency 'factory_girl_rails', '~> 4.2'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'rspec-rails',        '~> 2.13'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
