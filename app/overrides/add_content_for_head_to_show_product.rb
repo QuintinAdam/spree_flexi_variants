@@ -1,3 +1,4 @@
+# #cart-form[data-hook] might be wrong might just be #cart-form
 Deface::Override.new(
   virtual_path: "spree/products/show",
   name: "converted_cart_form_594755007",

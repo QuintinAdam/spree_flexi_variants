@@ -1,3 +1,4 @@
+# this one is just stupid think
 Deface::Override.new(
   virtual_path: "spree/products/_cart_form",
   name: "fix_cart_form_columnization_remove_column_classes",
