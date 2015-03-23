@@ -4,7 +4,7 @@ class CreateProductCustomizationTypes < ActiveRecord::Migration
       t.string :name
       t.string :presentation
       t.string :description
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :product_customization_types_products, id: false do |t|

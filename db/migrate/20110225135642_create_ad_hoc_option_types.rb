@@ -5,7 +5,7 @@ class CreateAdHocOptionTypes < ActiveRecord::Migration
       t.integer :option_type_id
       t.string :price_modifier_type, null: true, default: nil
       t.boolean :is_required, default: false
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

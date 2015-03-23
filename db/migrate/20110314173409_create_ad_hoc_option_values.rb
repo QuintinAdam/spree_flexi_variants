@@ -4,7 +4,7 @@ class CreateAdHocOptionValues < ActiveRecord::Migration
       t.integer :ad_hoc_option_type_id
       t.integer :option_value_id
       t.decimal :price_modifier, null: false, default: 0, precision: 8, scale: 2
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

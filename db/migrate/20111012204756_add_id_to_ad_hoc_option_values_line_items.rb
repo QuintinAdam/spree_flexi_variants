@@ -5,7 +5,7 @@ class AddIdToAdHocOptionValuesLineItems < ActiveRecord::Migration
     create_table :ad_hoc_option_values_line_items do |t|
       t.integer :line_item_id
       t.integer :ad_hoc_option_value_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 
@@ -15,7 +15,7 @@ class AddIdToAdHocOptionValuesLineItems < ActiveRecord::Migration
     create_table :ad_hoc_option_values_line_items, id: false do |t|
       t.integer :line_item_id
       t.integer :ad_hoc_option_value_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

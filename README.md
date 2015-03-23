@@ -29,7 +29,7 @@ Please see the Versionfile for working spree 2.4, 2.2, 2.0, 1.0, 0.70 and spree 
 Installation
 ------------
     # see the notes in Versionfile if you are using an older version of spree
-    gem 'spree_flexi_variants', git: 'git@github.com:jsqu99/spree_flexi_variants.git'
+    gem 'spree_flexi_variants', github: 'QuintinAdam/spree_flexi_variants', branch: 'spree-3-0-stable'
 
     bundle install
 

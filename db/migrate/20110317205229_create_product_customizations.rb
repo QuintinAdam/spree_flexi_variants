@@ -3,7 +3,7 @@ class CreateProductCustomizations < ActiveRecord::Migration
     create_table :product_customizations do |t|
       t.integer :line_item_id
       t.integer :product_customization_type_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

@@ -4,7 +4,7 @@ class CreateCustomizedProductOptions < ActiveRecord::Migration
       t.integer :product_customization_id
       t.integer :customizable_product_option_id
       t.string :value
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

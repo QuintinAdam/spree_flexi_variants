@@ -4,11 +4,11 @@ class CreateCustomizableProductOptions < ActiveRecord::Migration
       t.integer  :product_customization_type_id
       t.integer  :position
       t.string   :presentation,       null: false
-      t.string   :name,        null: false
+      t.string   :name,               null: false
       t.string   :description
-      t.string   :data_type, default: "string"
-      t.boolean  :is_required, default: false
-      t.timestamps
+      t.string   :data_type,          default: "string"
+      t.boolean  :is_required,        default: false
+      t.timestamps null: false
     end
   end
 
