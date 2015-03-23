@@ -11,8 +11,8 @@ module Spree
 
     # removed make_permalink as it is removed from spree and friendly_id does this for you.
     # make_permalink field: :slug
-
-    alias_method :permalink, :slug
+    # might be able to remove later.
+    alias_attribute :permalink, :slug
 
     private
 
