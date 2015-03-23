@@ -13,12 +13,12 @@
         <td><%=ot.name %></td>
         <td><%=ot.presentation %></td>
         <td class="actions"><%= link_to_with_icon 'icon-plus', t("select"),
-          url_for(:controller => "admin/option_types",
-                  :id => ot,
-                  :product_id => @product.permalink,
-                  :action => "select_ad_hoc",
-                  :option_type_id =>  ot),
-                  :class => 'iconlink' %>
+          url_for(controller: "admin/option_types",
+                  id: ot,
+                  product_id: @product.permalink,
+                  action: "select_ad_hoc",
+                  option_type_id:  ot),
+                  class: 'iconlink' %>
         </td>
       </tr>
     <% end %>

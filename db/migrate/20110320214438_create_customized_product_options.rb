@@ -1,6 +1,6 @@
 class CreateCustomizedProductOptions < ActiveRecord::Migration
   def self.up
-    create_table "customized_product_options" do |t|
+    create_table :customized_product_options do |t|
       t.integer :product_customization_id
       t.integer :customizable_product_option_id
       t.string :value
@@ -9,6 +9,6 @@ class CreateCustomizedProductOptions < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "customized_product_options"
+    drop_table :customized_product_options
   end
 end

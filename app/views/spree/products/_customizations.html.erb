@@ -3,7 +3,7 @@
   <div id="product-customizations">
 
     <%# for finding optional partials %>
-    <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+    <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {formats: [:html]}) %>
 
     <h6 class="product-section-title"><%= t(:customizations) %></h6>
     <% @product.product_customization_types.each do |product_customization_type| %>
@@ -14,14 +14,14 @@
 
       <% partial_name = "spree/products/customizations/customization_type/#{product_customization_type.name}" %>
       <% if lookup.exists?(partial_name,nil,true) %>
-        <%= render :partial => partial_name, :locals => {:product_customization_type => product_customization_type, :param_prefix => param_prefix} %>
+        <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
       <% else %>
 
         <%# render a custom partial based on the calculator name? %>
         <% partial_name = "spree/products/customizations/calculator_type/#{calculator_name(product_customization_type)}" %>
 
         <% if lookup.exists?(partial_name,nil,true) %>
-          <%= render :partial => partial_name, :locals => {:product_customization_type=>product_customization_type, :param_prefix => param_prefix} %>
+          <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
         <% else %>
 
           <%= field_set_tag product_customization_type.presentation do %>
@@ -29,7 +29,7 @@
             <dl>
               <% product_customization_type.customizable_product_options.each do |option| %>
                 <dt><%= option.presentation %></dt>
-                <dd><%= text_field_tag "#{param_prefix}[#{option.id}]","", :class=>"customization" %></dd>
+                <dd><%= text_field_tag "#{param_prefix}[#{option.id}]","", class: "customization" %></dd>
               <% end # options.each %>
             </dl>
 

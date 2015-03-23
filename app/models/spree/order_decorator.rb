@@ -6,7 +6,7 @@ module Spree
         current_item.quantity += quantity
         current_item.save
       else
-        current_item = LineItem.new(:quantity => quantity)
+        current_item = LineItem.new(quantity: quantity)
         current_item.variant = variant
 
         # add the product_customizations, if any

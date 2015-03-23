@@ -45,11 +45,11 @@ module Spree
             line_item.price    = variant.price + offset_price
           end
         end
-  
+
         line_item.save
         line_item
       end
-  
+
       def grab_line_item_by_variant(variant, raise_error = false, ad_hoc_option_value_ids = [], product_customizations = [])
         line_item = order.find_line_item_by_variant(variant, ad_hoc_option_value_ids, product_customizations)
 

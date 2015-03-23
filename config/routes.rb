@@ -1,7 +1,7 @@
 Spree::Core::Engine.add_routes do
-  match 'product_customizations/price', :to => 'product_customizations#price', :via => [:get, :post]
+  match 'product_customizations/price', to: 'product_customizations#price', via: [:get, :post]
 
-  match 'customize/:product_id', :to => 'products#customize', :as => 'customize', :via => [:get, :post]
+  match 'customize/:product_id', to: 'products#customize', as: 'customize', via: [:get, :post]
 
   namespace :admin do
 
@@ -33,7 +33,7 @@ Spree::Core::Engine.add_routes do
       end
     end
 
-    delete '/ad_hoc_option_values/:id', :to => "ad_hoc_option_values#destroy", :as => :ad_hoc_option_value
+    delete '/ad_hoc_option_values/:id', to: "ad_hoc_option_values#destroy", as: :ad_hoc_option_value
 
     resources :ad_hoc_variant_exclusions
 
@@ -77,5 +77,5 @@ Spree::Core::Engine.add_routes do
 
   end # namespace :admin
 
-  match 'admin/variant_configurations/:variant_id', :to => 'admin/variant_configurations#configure', :via => [:get, :post]
+  match 'admin/variant_configurations/:variant_id', to: 'admin/variant_configurations#configure', via: [:get, :post]
 end

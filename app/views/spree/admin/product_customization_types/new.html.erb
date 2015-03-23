@@ -1,12 +1,12 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render partial: 'spree/admin/shared/product_sub_menu' %>
 
-<%= render 'spree/shared/error_messages', :target => @product_customization_type%>
+<%= render 'spree/shared/error_messages', target: @product_customization_type%>
 
-<%= form_for(@product_customization_type, :url => admin_product_customization_types_url) do |f| %>
+<%= form_for(@product_customization_type, url: admin_product_customization_types_url) do |f| %>
   <fieldset>
     <legend><%= t("new_product_customization_type") %></legend>
-    <%= render :partial => "form", :locals => { :f => f } %>
-<!--     < %= render :partial => 'spree/admin/shared/new_resource_links' % >
+    <%= render partial: "form", locals: { f: f } %>
+<!--     < %= render partial: 'spree/admin/shared/new_resource_links' % >
 
 put this back in once r_c is removed
 -->

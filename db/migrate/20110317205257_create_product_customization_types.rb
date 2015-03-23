@@ -7,7 +7,7 @@ class CreateProductCustomizationTypes < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :product_customization_types_products, :id => false do |t|
+    create_table :product_customization_types_products, id: false do |t|
       t.integer :product_customization_type_id
       t.integer :product_id
     end

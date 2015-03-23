@@ -1,4 +1,4 @@
-    <%= form_for(ahot, :url => admin_ad_hoc_option_type_url(ahot), :html => { :method => :put }) do |f| %>
+    <%= form_for(ahot, url: admin_ad_hoc_option_type_url(ahot), html: { method: :put }) do |f| %>
 
     <tr>
       <td><%= ahot.option_type.name %></td>
@@ -9,7 +9,7 @@
       </td>
     </tr>
 
-    
+
     <tr>
       <td colspan="4">
         <h3><%= t("option_values") %></h3>
@@ -24,7 +24,7 @@
           </thead>
           <tbody id="option_values">
             <%= f.fields_for :option_values do |option_value_form| %>
-              <%= render :partial => "option_value_fields", :locals=>{:f => option_value_form} %>
+              <%= render partial: "option_value_fields", locals: {f: option_value_form} %>
             <% end %>
           </tbody>
         </table>
@@ -35,5 +35,5 @@
       <%= button t("update") %>
       <%= t("or") %> <%= link_to t("cancel"), selected_admin_ad_hoc_option_types_url(@product) %>
     </p>
-    
+
 <% end %>

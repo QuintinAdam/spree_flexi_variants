@@ -21,7 +21,7 @@ module SpreeFlexiVariants
 
     config.to_prepare &method(:activate).to_proc
 
-    initializer "spree.flexi_variants.preferences", :after => "spree.environment" do |app|
+    initializer "spree.flexi_variants.preferences", after: "spree.environment" do |app|
       SpreeFlexiVariants::Config = Spree::FlexiVariantsConfiguration.new
     end
     # store/flexi-variants should be removed after renaming the files

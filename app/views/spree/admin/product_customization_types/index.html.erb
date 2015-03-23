@@ -1,9 +1,9 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render partial: 'spree/admin/shared/product_sub_menu' %>
 
 <% content_for(:page_title, Spree.t("product_customization_types")) %>
 <% content_for(:page_actions) do %>
   <li id="new_product_customization_type_link">
-    <%= button_link_to Spree.t("new_product_customization_type"), new_admin_product_customization_type_url, {:icon => 'add', :id => 'new_product_customization_type_link'} %>
+    <%= button_link_to Spree.t("new_product_customization_type"), new_admin_product_customization_type_url, {icon: 'add', id: 'new_product_customization_type_link'} %>
   </li>
 <% end %>
 
@@ -20,7 +20,7 @@
       <td class='presentation'><%= product_customization_type.presentation %></td>
       <td class='description'><%= product_customization_type.description %></td>
       <td class="actions">
-        <%= link_to_edit(product_customization_type, :class => 'admin_edit_product_customization_type') %>
+        <%= link_to_edit(product_customization_type, class: 'admin_edit_product_customization_type') %>
         &nbsp;
         <%= link_to_delete(product_customization_type) %>
       </td>

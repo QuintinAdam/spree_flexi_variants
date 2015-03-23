@@ -6,7 +6,7 @@ module Spree
     # help w/ formatting the validation string
     # this method will likely be removed as we move everything to the client
     def custom_html_options(option)
-      h = {:style=>"float: left;", :class=>"customization #{validation_classes(option)}"}
+      h = {style: "float: left;", class: "customization #{validation_classes(option)}"}
       va = validation_attributes(option)
 
       h.merge! va if va
@@ -24,7 +24,7 @@ module Spree
       data_validation = JSON.parse option.data_validation
 
       # Note that when you have a data_validation hash such as:
-      # :data_validation=>{:type => :decimal, :min => :min_width, :max => :max_width, :required => true})
+      # data_validation: {type: :decimal, min: :min_width, max: :max_width, required: true})
       # some the key syms match up with the jquery validation names e.g. min, max.  That's why we are able
       # to use these as-is as keys in the validation_hash below
 
@@ -82,8 +82,8 @@ module Spree
 
 
     def ad_hoc_option_value_presentation_with_price_modifier(ah_ov)
-      presentation_string = ah_ov.price_modifier.nil? ? 
-                             ah_ov.option_value.presentation : 
+      presentation_string = ah_ov.price_modifier.nil? ?
+                             ah_ov.option_value.presentation :
                              "#{ah_ov.option_value.presentation} #{price_change_text(ah_ov)}"
     end
 

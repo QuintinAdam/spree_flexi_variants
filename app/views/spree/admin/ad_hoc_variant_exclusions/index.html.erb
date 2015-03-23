@@ -1,6 +1,6 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
+<%= render partial: 'spree/admin/shared/product_sub_menu' %>
 
-<%= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => "Ad Hoc Variant Exclusions"} %>
+<%= render partial: 'spree/admin/shared/product_tabs', locals: {current: "Ad Hoc Variant Exclusions"} %>
 
 <% if @product.ad_hoc_option_types.size <= 1 %>
   <h2><%= t("ad_hoc_variant_exclusions_unavailable") %></h2>
@@ -9,7 +9,7 @@
 <div class='toolbar'>
   <ul class='actions'>
     <li id="new_ot_link">
-      <%= button_link_to t("new_ad_hoc_variant_exclusion"), new_admin_product_ad_hoc_variant_exclusion_url, {:remote => true, :icon => 'add', :id => 'new_ad_hoc_variant_exclusion_link'} %>
+      <%= button_link_to t("new_ad_hoc_variant_exclusion"), new_admin_product_ad_hoc_variant_exclusion_url, {remote: true, icon: 'add', id: 'new_ad_hoc_variant_exclusion_link'} %>
     </li>
   </ul>
   <br class='clear' />

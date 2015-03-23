@@ -4,19 +4,19 @@ module Spree
 
     preference :min_pricing_area, :integer  # the minimum size we'll use for pricing (we might sell you a 4x4, but we'll charge u for a 10x10
 
-    preference :min_width, :integer, :default => 0
-    preference :max_width, :integer, :default => 100
+    preference :min_width, :integer, default: 0
+    preference :max_width, :integer, default: 100
 
-    preference :min_height, :integer, :default => 0
-    preference :max_height, :integer, :default => 100
+    preference :min_height, :integer, default: 0
+    preference :max_height, :integer, default: 100
 
     #attr_accessible :preferred_multiplier, :preferred_min_pricing_area, :preferred_min_width, :preferred_max_width,:preferred_min_height, :preferred_max_height
 
     # preference :min_area, :integer  # the minimum sized frame we'll sell
 
     # these can be reflected in the custom partials?
-    #  preference :measurement_units, :string, :default => 'inches'
-    #  preference :granularity, :string, :default => 'eighths'
+    #  preference :measurement_units, :string, default: 'inches'
+    #  preference :granularity, :string, default: 'eighths'
 
     def self.description
       "Product Area Calculator"
@@ -30,8 +30,8 @@ module Spree
     def create_options
       # This calculator knows that it needs two CustomizableOptions, width & height
       [
-       CustomizableProductOption.create(:name=>"width", :presentation=>"Width"),
-       CustomizableProductOption.create(:name=>"height", :presentation=>"Height")
+       CustomizableProductOption.create(name: "width", presentation: "Width"),
+       CustomizableProductOption.create(name: "height", presentation: "Height")
       ]
     end
 

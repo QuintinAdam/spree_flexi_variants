@@ -1,11 +1,11 @@
 module Spree
   Admin::OptionTypesController.class_eval do
     # not sure if I have to repeat the 'before_filter' for the original option_types account
-    before_filter :load_product_decorator, :only => [:select_ad_hoc, :available_ad_hoc]
+    before_filter :load_product_decorator, only: [:select_ad_hoc, :available_ad_hoc]
 
     def available_ad_hoc
       set_available_ad_hoc_option_types
-      render :layout => false
+      render layout: false
     end
 
     # AJAX method for selecting an existing option type and associating with the current product

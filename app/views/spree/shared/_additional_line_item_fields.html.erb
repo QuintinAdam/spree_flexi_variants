@@ -15,12 +15,12 @@
 
             <% next if option.empty? %>
 
-	          <% partial = option.customizable_product_option.name %>
-            <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+            <% partial = option.customizable_product_option.name %>
+            <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {formats: [:html]}) %>
 
             <% if lookup.exists?("spree/orders/custom_fields/#{partial}",nil,true) %>
 
-              <%= render :partial => "spree/orders/custom_fields/#{partial}", :locals=>{:option => option} %>
+              <%= render partial: "spree/orders/custom_fields/#{partial}", locals: {option: option} %>
 
             <% else %>
 

@@ -2,8 +2,8 @@ module Spree
   class Calculator::AmountTimesConstant < Calculator
     preference :multiplier, :decimal
 
-    preference :min_amount, :integer, :default=>0
-    preference :max_amount, :integer, :default=>100
+    preference :min_amount, :integer, default: 0
+    preference :max_amount, :integer, default: 100
 
     #attr_accessible :preferred_multiplier, :preferred_min_amount, :preferred_max_amount
 
@@ -19,7 +19,7 @@ module Spree
     def create_options
       # This calculator knows that it needs one CustomizableOption named amount
       [
-       CustomizableProductOption.create(:name=>"amount", :presentation=>"Amount")
+       CustomizableProductOption.create(name: "amount", presentation: "Amount")
       ]
     end
 

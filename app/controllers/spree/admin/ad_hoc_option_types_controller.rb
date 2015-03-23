@@ -1,8 +1,8 @@
 module Spree
   class Admin::AdHocOptionTypesController < Admin::ResourceController
 
-    before_filter :load_product, :only => [:selected]
-    before_filter :load_available_option_values, :only => [:edit]
+    before_filter :load_product, only: [:selected]
+    before_filter :load_available_option_values, only: [:edit]
 
     def selected
       @option_types = @product.ad_hoc_option_types

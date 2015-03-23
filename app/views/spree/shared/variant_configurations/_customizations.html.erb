@@ -5,7 +5,7 @@
   <div id="product-customizations">
 
     <%# for finding optional partials %>
-    <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {:formats => [:html]}) %>
+    <% lookup=ActionView::LookupContext.new(ActionController::Base.view_paths, {formats: [:html]}) %>
 
     <%# for finding optional partials %>
     <% product.product_customization_types.each do |product_customization_type| %>
@@ -16,16 +16,16 @@
 
       <% partial_name = "/spree//shared/variant_configurations/customizations/calculator_type/#{product_customization_type.name}" %>
       <% if lookup.exists?(partial_name,nil,true) %>
-        <%= render :partial => partial_name, :locals => {:product_customization_type => product_customization_type, :param_prefix => param_prefix} %>
+        <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
       <% else %>
 
         <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
 
         <%= field_set_tag product_customization_type.presentation do %>
 
-	        <% if product_customization_type.description && !product_customization_type.description.empty? %>
-	          <p><%=  product_customization_type.description %></p>
-	        <% end %>
+          <% if product_customization_type.description && !product_customization_type.description.empty? %>
+            <p><%=  product_customization_type.description %></p>
+          <% end %>
 
           <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
           <ol style="list-style: none;">
@@ -33,7 +33,7 @@
 
               <li>
                 <label style="width:300px;"><%= option.presentation %></label>
-                <%= text_field_tag "#{param_prefix}[#{option.id}]","",:class=>"customization" %>
+                <%= text_field_tag "#{param_prefix}[#{option.id}]","",class: "customization" %>
               </li>
             <% end # options.each %>
           </ol>

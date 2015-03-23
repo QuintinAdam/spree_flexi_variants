@@ -9,7 +9,7 @@ module ProductCustomizations
       # {customized_product_option_id => <user input>,  etc.}
       next if cv_pair.empty? || cv_pair.values.all? {|v| v.empty?}
       # create a product_customization based on ct_id
-      pc=Spree::ProductCustomization.new(:product_customization_type_id => ct_id)
+      pc=Spree::ProductCustomization.new(product_customization_type_id: ct_id)
 
       cv_pair.each_pair do |cust_opt_id, user_input|
         # create a customized_product_option based on cust_opt_id

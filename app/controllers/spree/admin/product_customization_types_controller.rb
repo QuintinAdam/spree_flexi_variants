@@ -1,7 +1,7 @@
 module Spree
   class Admin::ProductCustomizationTypesController < Admin::ResourceController
-    before_filter :load_product, :only => [:selected, :available, :remove]
-    before_filter :load_calculators, :only => [:new, :edit]
+    before_filter :load_product, only: [:selected, :available, :remove]
+    before_filter :load_calculators, only: [:new, :edit]
 
     def load_calculators
       @calculators = ProductCustomizationType.calculators.sort_by(&:name)
@@ -20,7 +20,7 @@ module Spree
 
           # for each mandatory input type
           #        @product_customization_type.calculator.required_fields.each_pair do |key, val|
-          #          cpo= CustomizableProductOption.create(:name=>key, :presentation=>key.titleize, :is_required => true,:data_type=>val)
+          #          cpo= CustomizableProductOption.create(name: key, presentation: key.titleize, is_required: true,data_type: val)
           #          @product_customization_type.customizable_product_options << cpo
           #        end
         end
@@ -29,7 +29,7 @@ module Spree
 
     def available
       set_available_product_customization_types
-      render :layout => false
+      render layout: false
     end
 
     def selected

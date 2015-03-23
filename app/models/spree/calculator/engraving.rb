@@ -17,7 +17,7 @@ module Spree
     def create_options
       # This calculator knows that it needs one CustomizableOption named inscription
       [
-       CustomizableProductOption.create(:name=>"inscription", :presentation=>"Inscription")
+       CustomizableProductOption.create(name: "inscription", presentation: "Inscription")
       ]
     end
 

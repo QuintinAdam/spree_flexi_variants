@@ -1,10 +1,10 @@
 class CustomizationValidations < ActiveRecord::Migration
   def self.new_validation_string (data_type, required)
-    {:type => data_type, :required => required=="t" }.to_json
+    {type: data_type, required: required=="t" }.to_json
   end
 
   def self.up
-    add_column :customizable_product_options, :data_validation, :string, :null => true
+    add_column :customizable_product_options, :data_validation, :string, null: true
     sql = "select id, data_type, is_required from customizable_product_options"
     results = ActiveRecord::Base.connection.execute(sql)
 
@@ -22,8 +22,8 @@ class CustomizationValidations < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :customizable_product_options, :data_type, :string, :default => "string"
-    add_column :customizable_product_options, :is_required, :boolean, :default => false
+    add_column :customizable_product_options, :data_type, :string, default: "string"
+    add_column :customizable_product_options, :is_required, :boolean, default: false
 
 
     sql = "select id, data_validation from customizable_product_options"

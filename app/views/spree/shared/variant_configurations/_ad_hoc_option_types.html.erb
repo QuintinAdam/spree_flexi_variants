@@ -15,7 +15,7 @@
             <label style="width:300px;"><%= ot.presentation %></label>
             <%= select_tag "ad_hoc_option_values[#{ahot.id}]",
               options_for_select(ad_hoc_option_value_options(ahot.option_values)),
-             :include_blank => 'None', :class => class_str %>
+             include_blank: 'None', class: class_str %>
           </li>
         <% end %>  <%# each %>
       </ol>

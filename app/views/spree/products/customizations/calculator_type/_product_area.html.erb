@@ -3,15 +3,15 @@
 <% width_dom_id = "product_area_input_#{product_customization_type.customizable_product_options.first.id}" %>
 <% height_dom_id = "product_area_input_#{product_customization_type.customizable_product_options.second.id}" %>
 
-<%= render :partial => "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}",
-           :locals => {:calculator=>product_customization_type.calculator} %>
+<%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}",
+           locals: {calculator: product_customization_type.calculator} %>
 
   <% # add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
   <%= content_for :head do %>
     <%= javascript_tag do %>
 
-      function product_area_keyup() { 
+      function product_area_keyup() {
         var tf = $(this);
 
         delay(function(){
@@ -32,11 +32,11 @@
     <li>
       <% option = product_customization_type.customizable_product_options.first %>
 
-  	  <label for="<%= width_dom_id %>"><%= option.description %></label>
+      <label for="<%= width_dom_id %>"><%= option.description %></label>
       <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
-	    <%= text_field_tag "#{param_prefix}[#{option.id}]",
+      <%= text_field_tag "#{param_prefix}[#{option.id}]",
                          "",
-                         :id => width_dom_id ,:style=>"float: left;", :class=>"customization" %>
+                         id: width_dom_id ,style: "float: left;", class: "customization" %>
 
     </li>
 
@@ -44,14 +44,14 @@
     <li>
       <% option = product_customization_type.customizable_product_options.second %>
 
-  	  <label for="<%= height_dom_id %>"><%= option.description %></label>
-	    <%= text_field_tag "#{param_prefix}[#{option.id}]",
+      <label for="<%= height_dom_id %>"><%= option.description %></label>
+      <%= text_field_tag "#{param_prefix}[#{option.id}]",
                          "",
-                         :id => height_dom_id ,:style=>"float: left;", :class=>"customization" %>
+                         id: height_dom_id ,style: "float: left;", class: "customization" %>
     </li>
 
     <% # the price is stored here on change, and later collected by the product-wide updatePrice() %>
-    <%= hidden_field_tag "customization_price", "0", :class => "customization_price" %>
+    <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
 
   </ol>
 <% end # field_set_tag %>

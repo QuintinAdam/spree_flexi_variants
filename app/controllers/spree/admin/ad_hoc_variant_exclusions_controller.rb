@@ -1,7 +1,7 @@
 module Spree
   class Admin::AdHocVariantExclusionsController < Admin::ResourceController
 
-    before_filter :load_product, :only => [:index, :new, :create]
+    before_filter :load_product, only: [:index, :new, :create]
 
     def create
 
@@ -11,7 +11,7 @@ module Spree
 
       params["ad_hoc_option_type"].each_pair do |otid, ovid|
         next if ovid.empty?
-        eov=ExcludedAdHocOptionValue.create(:ad_hoc_variant_exclusion => ave, :ad_hoc_option_value_id => ovid)
+        eov=ExcludedAdHocOptionValue.create(ad_hoc_variant_exclusion: ave, ad_hoc_option_value_id: ovid)
       end
 
       ave.product=@product
