@@ -64,6 +64,7 @@ module Spree
         # 2,147,483,647 is crazy.
         # See issue #2695.
         if quantity > 2_147_483_647
+          #fix this
           errors.add(:base, Spree.t(:please_enter_reasonable_quantity, scope: :order_populator))
           return false
         end

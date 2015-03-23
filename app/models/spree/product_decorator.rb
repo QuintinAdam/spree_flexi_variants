@@ -9,11 +9,10 @@ module Spree
     # allowed customizations
     has_and_belongs_to_many :product_customization_types
 
-    make_permalink field: :slug
+    # removed make_permalink as it is removed from spree and friendly_id does this for you.
+    # make_permalink field: :slug
 
-    def permalink
-      slug
-    end
+    alias_method :permalink, :slug
 
     private
 
