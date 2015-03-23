@@ -11,7 +11,9 @@ module Spree
     #
     # Adds a new item to the order (creating a new order if none already exists)
     def populate
-      populator = Spree::OrderPopulator.new(current_order(create_order_if_necessary: true), current_currency)
+      # populator = Spree::OrderPopulator.new(current_order(create_order_if_necessary: true), current_currency)
+      # OLD_CODE ^ Spree 3.0.0 removed OrderPopulator and moved the logic into OrderContents. You no longer pass in the current_currency.
+      populator = Spree::OrderContents.new(current_order(create_order_if_necessary: true))
 
       if populator.populate(params[:variant_id], params[:quantity], ad_hoc_option_value_ids, product_customizations)
         current_order.ensure_updated_shipments

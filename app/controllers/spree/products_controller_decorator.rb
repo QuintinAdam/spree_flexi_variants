@@ -4,6 +4,16 @@ module Spree
       # copied verbatim from 0.60 ProductsController#show, except that I changed id to product_id on following line
       # TODO: is there another way?  e.g. render action: "show", template: "customize" ?
 
+      # new code in show action
+
+      # @variants = @product.variants_including_master.active(current_currency).includes([:option_values, :images])
+      # @product_properties = @product.product_properties.includes(:property)
+      # @taxon = Spree::Taxon.find(params[:taxon_id]) if params[:taxon_id]
+
+      # FIXTHIS
+      # possible new if we can't get it to use the show
+      # product has a slug not permalink
+
       @product = Product.find_by_permalink!(params[:product_id])
       return unless @product
 

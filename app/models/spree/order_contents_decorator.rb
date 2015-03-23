@@ -11,6 +11,13 @@ module Spree
       line_item
     end
 
+    #moved from OrderPopulator to OrderContents
+    # FIXTHIS file
+    def populate(variant_id, quantity, ad_hoc_option_value_ids = [], product_customizations = [])
+      attempt_cart_add(variant_id, quantity, ad_hoc_option_value_ids, product_customizations)
+      valid?
+    end
+
     private
       def add_to_line_item(variant, quantity, currency=nil, shipment=nil, ad_hoc_option_value_ids = [], product_customizations = [])
         line_item = grab_line_item_by_variant(variant, false, ad_hoc_option_value_ids, product_customizations)
@@ -48,6 +55,27 @@ module Spree
 
         line_item.save
         line_item
+      end
+
+      # FIXTHIS attempt_cart_add is very similar to add_to_line_item and add_to_line_item from spree has more improvements
+      #  also similar code in https://github.com/bonobos/spree/blob/14c56cad4570452db956372c151a09f4552c8158/frontend/app/controllers/spree/orders_controller.rb#L48
+      def attempt_cart_add(variant_id, quantity, ad_hoc_option_value_ids, product_customizations)
+        quantity = quantity.to_i
+        # 2,147,483,647 is crazy.
+        # See issue #2695.
+        if quantity > 2_147_483_647
+          errors.add(:base, Spree.t(:please_enter_reasonable_quantity, scope: :order_populator))
+          return false
+        end
+
+        variant = Spree::Variant.find(variant_id)
+        if quantity > 0
+          line_item = @order.contents.add(variant, quantity, currency, nil, ad_hoc_option_value_ids, product_customizations)
+          unless line_item.valid?
+            errors.add(:base, line_item.errors.messages.values.join(" "))
+            return false
+          end
+        end
       end
 
       def grab_line_item_by_variant(variant, raise_error = false, ad_hoc_option_value_ids = [], product_customizations = [])

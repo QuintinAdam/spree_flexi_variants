@@ -24,9 +24,9 @@ module SpreeFlexiVariants
     initializer "spree.flexi_variants.preferences", after: "spree.environment" do |app|
       SpreeFlexiVariants::Config = Spree::FlexiVariantsConfiguration.new
     end
-    # store/flexi-variants should be removed after renaming the files
+
     initializer "spree.flexi_variants.assets.precompile" do |app|
-        app.config.assets.precompile += ['store/spree_flexi_variants_exclusions.js','admin/orders/flexi_configuration.js','store/spree-flexi-variants.*']
+        app.config.assets.precompile += ['spree/frontend/spree_flexi_variants_exclusions.js','spree/backend/orders/flexi_configuration.js','spree/frontend/spree-flexi-variants.*']
     end
 
     initializer "spree.flexi_variants.register.calculators" do |app|
