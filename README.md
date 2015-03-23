@@ -21,15 +21,15 @@ Use these when you want the ability to provide a highly customized product e.g. 
 Version Notes
 =============
 
-The branch you are currently on (master) is an upgrade-in-progress to spree 1.1.  Consider it beta right now.
+The branch you are currently on (spree-3-0-stable) is an upgrade-in-progress to spree 3.0.0.  Consider it beta right now.
 
-Please see the Versionfile for working spree 1.0, 0.70 and  spree 0.60 versions
+Please see the Versionfile for working spree 2.4, 2.2, 2.0, 1.0, 0.70 and spree 0.60 versions
 
 
 Installation
 ------------
     # see the notes in Versionfile if you are using an older version of spree
-    gem 'spree_flexi_variants', :git=>'git@github.com:jsqu99/spree_flexi_variants.git'
+    gem 'spree_flexi_variants', git: 'git@github.com:jsqu99/spree_flexi_variants.git'
 
     bundle install
 
