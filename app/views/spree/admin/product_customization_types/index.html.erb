@@ -15,9 +15,8 @@
     </thead>
     <tbody>
       <% @product_customization_types.each do |product_customization_type| %>
-        <%# spree_dom_id new and dom_id is old. need to check what gets used for this gem %>
-        <tr id="<%= dom_id product_customization_type %>">
-          <td><span class="handle"></span> <%= product_customization_type.name %></td>
+        <tr id="<%= spree_dom_id(product_customization_type) %>">
+          <td class='name'><%= product_customization_type.name %></td>
           <td class='presentation'><%= product_customization_type.presentation %></td>
           <td class='description'><%= product_customization_type.description %></td>
           <td class="actions actions-2 text-right">

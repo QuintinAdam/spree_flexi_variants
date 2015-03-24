@@ -1,26 +1,34 @@
-<table class="index">
-  <tr>
-    <th><%= t("name") %></th>
-    <th><%= t("presentation") %></th>
-    <th><%= t("description") %></th>
-    <th>&nbsp;</th>
-  </tr>
-  <% @product_customization_types.each do |customization_type| %>
-    <tr>
-      <td><%= customization_type.name %></td>
-      <td><%= customization_type.presentation %></td>
-      <td><%= customization_type.description %></td>
-      <td class="actions">
-      <%= link_to_with_icon 'delete',  t("remove"), remove_admin_product_product_customization_type_url(@product, customization_type) %>
-      </td>
-    </tr>
-  <% end %>
-  <% if @product_customization_types.empty? %>
-   <tr><td colspan="3"><%= t(:none) %></td></tr>
-  <% end %>
-</table>
+<% if @product_customization_types.any? %>
+  <table class="table" id='product_customization_types' data-hook>
+    <thead>
+      <tr data-hook="product_customization_types_header">
+        <th><%= Spree.t("name") %></th>
+        <th><%= Spree.t("presentation") %></th>
+        <th><%= Spree.t("description") %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product_customization_types.each do |product_customization_type| %>
+        <tr id="<%= spree_dom_id(product_customization_type) %>">
+          <td class='name'><%= product_customization_type.name %></td>
+          <td class='presentation'><%= product_customization_type.presentation %></td>
+          <td class='description'><%= product_customization_type.description %></td>
+          <td class="actions actions-1 text-right">
+            <%= link_to_with_icon 'delete', '',remove_admin_product_product_customization_type_url(@product, product_customization_type), class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::ProductCustomization)) %>,
+    <%= link_to Spree.t(:add_one), spree.available_admin_product_product_customization_types_url(@product), remote: :true %>!
+  </div>
+<% end %>
 
 <div id="customization-types"></div>
   <span id="new_ct_link">
-    <%= link_to icon('add') + ' ' + t("add_product_customization_type"), available_admin_product_product_customization_types_url(@product), remote: :true, class: 'iconlink' %>
+    <%= link_to_with_icon 'add', t("add_product_customization_type"), available_admin_product_product_customization_types_url(@product), remote: :true %>
   </span>

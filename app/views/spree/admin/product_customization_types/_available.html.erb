@@ -1,29 +1,36 @@
-<h4><%= t("add_product_customization_types") %></h4>
-<table class="index">
-  <tr>
-    <th><%= t("name") %></th>
-    <th><%= t("presentation") %></th>
-    <th><%= t("description") %></th>
-    <th>&nbsp;</th>
-  </tr>
-  <% @available_product_customization_types.each do |ct| %>
-  <tr>
-    <td><%=ct.name %></td>
-    <td><%=ct.presentation %></td>
-    <td><%=ct.description %></td>
-    <td class="actions"><%= link_to icon('add') + ' ' + t("select"),
-                            url_for(controller: "admin/product_customization_types",
-                                    id: ct,
-                                    product_id: @product.permalink,
-                                    action: "select",
-                                    product_customization_type_id:  ct),
-                           remote: true, class: 'iconlink' %>
-    </td>
-  </tr>
-  <% end %>
-  <% if @available_product_customization_types.empty? %>
-  <tr>
-    <td colspan="3"><%= t('none_available') %></td>
-  </tr>
-  <% end %>
-</table>
+<h3><%= t("add_product_customization_types") %></h3>
+
+<% if @available_product_customization_types.any? %>
+  <table class="table" id='available_product_customization_types' data-hook>
+    <thead>
+      <tr data-hook="available_product_customization_types_header">
+        <th><%= Spree.t("name") %></th>
+        <th><%= Spree.t("presentation") %></th>
+        <th><%= Spree.t("description") %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @available_product_customization_types.each do |available_product_customization_type| %>
+        <tr id="<%= spree_dom_id(available_product_customization_type) %>">
+          <td class="name"><%= available_product_customization_type.name %></td>
+          <td class='presentation'><%= available_product_customization_type.presentation %></td>
+          <td class='description'><%= available_product_customization_type.description %></td>
+          <td class="actions actions-1 text-right">
+            <%= link_to_with_icon 'add', '', url_for(
+              controller: "admin/product_customization_types",
+              id: available_product_customization_type,
+              product_id: @product.permalink,
+              action: "select",
+              product_customization_type_id:  available_product_customization_type), remote: true, class: 'btn btn-success btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::ProductCustomization)) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_product_customization_type_url %>!
+  </div>
+<% end %>
