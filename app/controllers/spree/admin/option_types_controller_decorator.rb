@@ -33,7 +33,8 @@ module Spree
     end
 
     def load_product_decorator
-      load_product
+      # load_product # fix in progress https://github.com/spree/spree/pull/6220
+      @product = Product.friendly.find(params[:product_id])
     end
 
   end
