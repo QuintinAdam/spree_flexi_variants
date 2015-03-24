@@ -6,39 +6,45 @@
   <% end %>
 <% end %>
 
-<h1><%= t("editing_product_customization_type") %></h1>
-<%= render 'spree/shared/error_messages', target: @product_customization_type %>
+<% content_for :page_title do %>
+  <%= Spree.t(:editing_resource, resource: Spree::ProductCustomizationType.model_name.human) %> <span class="green">"<%= @product_customization_type.name %>"</span>
+<% end %>
+
+<% content_for :page_actions do %>
+  <span id="customizable_product_options_value" data-hook>
+    <%= button_link_to Spree.t(:add_option_value), "javascript:;", icon: 'add', :'data-target' => "tbody#customizable_product_options", class: 'btn-success spree_add_fields'  %>
+  </span>
+<% end %>
+
+<%= render 'spree/admin/shared/error_messages', target: @product_customization_type %>
+
 <%= form_for(@product_customization_type, url: admin_product_customization_type_url(@product_customization_type), html: { method: :put }) do |f| %>
-<fieldset>
-  <legend><%= t("editing_product_customization_type") %></legend>
-  <%= render partial: "form", locals: { f: f } %>
-  <h3><%= t("customizable_product_options") %></h3>
-  <table class="index">
-    <thead>
-      <tr>
-        <th><%= t("name") %></th>
-        <th><%= t("presentation") %></th>
-        <th><%= t("description") %></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="customizable_product_options">
-      <tr id="none">
-        <td colspan="3"><%= @product_customization_type.customizable_product_options.empty? ? t("none") : "" %></td>
-      </tr>
-      <%= f.fields_for :customizable_product_options do |customizable_form| %>
-        <%= render "customizable_product_option_fields", f: customizable_form %>
-      <% end %>
-    </tbody>
-  </table>
-  <%# link_to_add_fields t("add_customizable_product_option"), "tbody#customizable_product_options" %>
+  <fieldset>
+    <%= render partial: "form", locals: { f: f } %>
 
-<!-- b/c of r_c removal -->
-<p class="form-buttons">
-  <%= button t("update") %>
-  <%= t("or") %> <%= link_to t("cancel"), admin_product_customization_types_url %>
-</p>
-
-<!--   < %= # render partial: 'admin/shared/edit_resource_links' % > -->
-</fieldset>
+    <h3><%= t("customizable_product_options") %></h3>
+    <table class="table index" id='customizable_product_options' data-hook>
+      <thead>
+        <tr data-hook="customizable_product_options_header">
+          <th><%= t("name") %></th>
+          <th><%= t("presentation") %></th>
+          <th><%= t("description") %></th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody id="customizable_product_options">
+        <% if @product_customization_type.customizable_product_options.empty? %>
+          <tr id="none" data-hook="option_none">
+            <td colspan="2"><%= Spree.t(:none) %></td>
+            <td class="actions text-center"></td>
+          </tr>
+        <% else %>
+          <%= f.fields_for :customizable_product_options do |customizable_form| %>
+            <%= render partial: "customizable_product_option_fields", locals: { f: customizable_form } %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
 <% end %>

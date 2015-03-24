@@ -1,20 +1,12 @@
-<%= render 'spree/shared/error_messages', target: @product_customization_type%>
+<% content_for :page_title do %>
+  <%= t(:new_product_customization_type) %>
+<% end %>
+
+<%= render 'spree/admin/shared/error_messages', target: @product_customization_type  %>
 
 <%= form_for(@product_customization_type, url: admin_product_customization_types_url) do |f| %>
   <fieldset>
-    <legend><%= t("new_product_customization_type") %></legend>
     <%= render partial: "form", locals: { f: f } %>
-<!--     < %= render partial: 'spree/admin/shared/new_resource_links' % >
-
-put this back in once r_c is removed
--->
-
-
-<p class="form-buttons">
-  <%= button t("actions.create") %>
-  <%= t("or") %> <%= link_to t("actions.cancel"), admin_product_customization_types_url %>
-</p>
-
-
+    <%= render partial: 'spree/admin/shared/new_resource_links' %>
   </fieldset>
 <% end %>

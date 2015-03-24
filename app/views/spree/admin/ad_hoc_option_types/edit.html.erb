@@ -1,5 +1,5 @@
 <h1><%= t("editing_option_type") %> "<%= @ad_hoc_option_type.option_type.presentation %>"</h1>
-<%= render 'spree/shared/error_messages', target: @ad_hoc_option_type %>
+<%= render 'spree/admin/shared/error_messages', target: @ad_hoc_option_type %>
 <%= form_for(@ad_hoc_option_type, url: object_url, html: { method: :put }) do |f| %>
 <fieldset>
   <legend><%= t("editing_option_type") %></legend>

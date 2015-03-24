@@ -1,27 +1,36 @@
 <% content_for(:page_title, Spree.t("product_customization_types")) %>
 <% content_for(:page_actions) do %>
-  <li id="new_product_customization_type_link">
-    <%= button_link_to Spree.t("new_product_customization_type"), new_admin_product_customization_type_url, {icon: 'add', id: 'new_product_customization_type_link'} %>
-  </li>
+  <%= button_link_to Spree.t("new_product_customization_type"), spree.new_admin_product_customization_type_url, class: 'btn-success', icon: 'add', id: 'new_product_customization_type_link' %>
 <% end %>
 
-<table class="index sortable" id='listing_product_customization_types'>
-  <tr>
-    <th><%= Spree.t("name") %></th>
-    <th><%= Spree.t("presentation") %></th>
-    <th><%= Spree.t("description") %></th>
-    <th></th>
-  </tr>
-  <% @product_customization_types.each do |product_customization_type| %>
-    <tr id="<%= dom_id product_customization_type %>">
-      <td><span class="handle"></span> <%= product_customization_type.name %></td>
-      <td class='presentation'><%= product_customization_type.presentation %></td>
-      <td class='description'><%= product_customization_type.description %></td>
-      <td class="actions">
-        <%= link_to_edit(product_customization_type, class: 'admin_edit_product_customization_type') %>
-        &nbsp;
-        <%= link_to_delete(product_customization_type) %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<% if @product_customization_types.any? %>
+  <table class="table" id='product_customization_types' data-hook>
+    <thead>
+      <tr data-hook="product_customization_types_header">
+        <th><%= Spree.t("name") %></th>
+        <th><%= Spree.t("presentation") %></th>
+        <th><%= Spree.t("description") %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product_customization_types.each do |product_customization_type| %>
+        <%# spree_dom_id new and dom_id is old. need to check what gets used for this gem %>
+        <tr id="<%= dom_id product_customization_type %>">
+          <td><span class="handle"></span> <%= product_customization_type.name %></td>
+          <td class='presentation'><%= product_customization_type.presentation %></td>
+          <td class='description'><%= product_customization_type.description %></td>
+          <td class="actions actions-2 text-right">
+            <%= link_to_edit(product_customization_type, no_text: true, class: 'admin_edit_product_customization_type') %>
+            <%= link_to_delete(product_customization_type, no_text: true) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::ProductCustomization)) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_product_customization_type_url %>!
+  </div>
+<% end %>

@@ -1,8 +1,9 @@
-<tr class="customization_value type fields" id="<%= dom_id(f.object) %>">
-  <td><%= f.text_field :name, readonly: true, disabled: true %></td>
-  <td><%= f.text_field :presentation %></td>
-  <td><%= f.text_area :description, {style: 'height: auto;', rows: 3, cols: 25} %></td>
-  <td class="actions">
-    <%# link_to_remove_nested_fields t("remove"), f, no_text: true, nest: "product_customization_type" %>
+<tr class="customization_value type fields" id="spree_dom_id(f.object)%>  %>" data-hook="customization_value">
+  <td><%= f.text_field :name, readonly: true, disabled: true, class: "form-control" %></td>
+  <td><%= f.text_field :presentation, class: "form-control" %></td>
+  <td><%= f.text_field :description, class: "form-control" %></td>
+  <td class="actions actions-0 text-center">
+    <%# FIXTHIS might need a remove route %>
+    <%#= link_to_icon_remove_fields f %>
   </td>
 </tr>
