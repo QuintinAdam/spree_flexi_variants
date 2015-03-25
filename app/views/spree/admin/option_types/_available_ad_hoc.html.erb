@@ -1,31 +1,30 @@
-<h4><%= t("add_option_types") %></h4>
-<table class="index">
-  <thead>
-    <tr>
-      <th><%= t("name") %></th>
-      <th><%= t("presentation") %></th>
-      <th class='actions'></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @available_option_types.each do |ot| %>
-      <tr>
-        <td><%=ot.name %></td>
-        <td><%=ot.presentation %></td>
-        <td class="actions"><%= link_to_with_icon 'icon-plus', t("select"),
-          url_for(controller: "admin/option_types",
-                  id: ot,
-                  product_id: @product.slug,
-                  action: "select_ad_hoc",
-                  option_type_id:  ot),
-                  class: 'iconlink' %>
-        </td>
+<h4><%= Spree.t("add_option_types") %></h4>
+
+<% if @available_option_types.any? %>
+  <table class="table" id='available_ad_hoc_option_types' data-hook>
+    <thead>
+      <tr data-hook="available_ad_hoc_option_types_header">
+        <th><%= Spree.t("name") %></th>
+        <th><%= Spree.t("presentation") %></th>
+        <th class="actions"></th>
       </tr>
-    <% end %>
-    <% if @available_option_types.empty? %>
-      <tr>
-        <td colspan="3"><%= t('none_available') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @available_option_types.each do |available_option_type| %>
+        <tr>
+          <td><%= available_option_type.name %></td>
+          <td><%= available_option_type.presentation %></td>
+          <td class="actions"><%= link_to_with_icon 'add', '', url_for(
+            controller: "admin/option_types",
+            id: available_option_type,
+            product_id: @product.slug,
+            action: "select_ad_hoc",
+            option_type_id:  available_option_type), class: 'btn btn-success btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+
+<% end %>

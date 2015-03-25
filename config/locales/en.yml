@@ -7,6 +7,7 @@ en:
   edit_option_values: "Edit Option Values"
   notice_messages:
     option_value_removed: "Option Value Removed"
+    option_type_removed: "Option Type Removed"
     product_customization_type_removed: "Product Customization Type Removed"
     ad_hoc_variant_exclusion_removed: "Exclusion Removed"
   ad_hoc_variant_exclusion: 'Ad Hoc Variant Exclusion'
@@ -39,7 +40,7 @@ en:
   min_area: 'Min. Area'
   min_amount: 'Min. Amount'
   max_amount: 'Max. Amount'
-  min_pricing_area: 'Min. Area to Price (possbily has smaller area, but will be priced as if this area)'
+  min_pricing_area: 'Min. Area to Price (possibly has smaller area, but will be priced as if this area)'
   not_all_combinations_available: '*Note that not all option combinations are available'
   select_variant_options: 'Options'
   customizations: 'Customizations'

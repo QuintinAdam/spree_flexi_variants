@@ -17,10 +17,9 @@ module Spree
       # TODO: when removing an option type, we need to check if removing the option type from an
       # associated exclusion causes the exclusion to only have one member.  If so, we'll need to
       # remove the entire exclusion
-      @product=@ad_hoc_option_type.product
+      @product = @ad_hoc_option_type.product
       @ad_hoc_option_type.destroy
-      flash.notice = I18n.t("notice_messages.option_type_removed")
-      redirect_to selected_admin_product_ad_hoc_option_types_url(@product)
+      redirect_to selected_admin_product_ad_hoc_option_types_url(@product), notice: I18n.t("notice_messages.option_type_removed")
     end
 
     protected
