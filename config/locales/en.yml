@@ -23,6 +23,7 @@ en:
   add_product_customization_types: 'Add Product Customization Types'
   add_customizable_product_option: 'Add Customizable Option'
   editing_product_customization_type: 'Editing Product Customization Type'
+  editing_option_type: "Editing Option Type" # missing from ru
   form_label: 'HTML Form Label'
   data_type: 'Data Type (for input validation)'
   default_value: 'Default Value'

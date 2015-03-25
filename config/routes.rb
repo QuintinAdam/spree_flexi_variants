@@ -74,7 +74,6 @@ Spree::Core::Engine.add_routes do
         end
       end
     end #products
-
   end # namespace :admin
 
   match 'admin/variant_configurations/:variant_id', to: 'admin/variant_configurations#configure', via: [:get, :post]

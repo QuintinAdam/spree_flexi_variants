@@ -1,18 +1,14 @@
 <tr class="option_value fields" id="<%= spree_dom_id(f.object) %>">
-  <td class='name'><span class="handle"></span><span> <%= f.object.option_value.name %> </span></td>
-  <td class='presentation'><span>  <%= f.object.option_value.presentation %> </span></td>
-  <td class='price_modifier'><%= f.text_field :price_modifier %></td>
-  <td class='cost_price_modifier'><%= f.text_field :cost_price_modifier %></td>
-  <td><%= f.check_box :selected %></td>
-  <td class="actions">
-    <%#link_to_remove_nested_fields t("remove"), f, no_text: true, nest: "ad_hoc_option_type" %>
-    <%=
-      link_to_with_icon(
-        'icon-trash', '',
-        admin_ad_hoc_option_value_path(f.object),
-        method: :delete,
-        class: "remove_fields no-text with-tip"
-      ) + f.hidden_field(:_destroy)
-     %>
+  <td class='name move-handle'>
+    <span class="icon icon-move handle"></span>
+    <span> <%= f.object.option_value.name %></span>
+  </td>
+  <td class='presentation'><span><%= f.object.option_value.presentation %> </span></td>
+  <td class='price_modifier'><%= f.text_field :price_modifier, class: 'form-control' %></td>
+  <td class='cost_price_modifier'><%= f.text_field :cost_price_modifier, class: 'form-control' %></td>
+  <td class='selected'><%= f.check_box :selected, class: 'form-control' %></td>
+  <td class="actions actions-1 text-right">
+    <%= link_to_with_icon('delete', '', admin_ad_hoc_option_value_path(f.object), method: :delete, class: "btn btn-danger btn-sm"
+      ) %>
   </td>
 </tr>
