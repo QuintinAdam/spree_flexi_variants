@@ -13,8 +13,7 @@ module Spree
       # FIXTHIS
       # possible new if we can't get it to use the show
       # product has a slug not permalink
-
-      @product = Product.find_by_permalink!(params[:product_id])
+      @product = Product.friendly.find(params[:product_id])
       return unless @product
 
       @variants = Variant.active.includes([:option_values, :images]).where(product_id: @product.id)
@@ -24,6 +23,7 @@ module Spree
       referer = request.env['HTTP_REFERER']
 
       # HTTP_REFERER_REGEXP (from spree) is unknown constant sometimes.  not sure why.
+      # FIXTHIS I really don't like this
       if referer && referer.match(/^https?:\/\/[^\/]+\/t\/([a-z0-9\-\/]+)$/)
         @taxon = Taxon.find_by_permalink($1)
       end

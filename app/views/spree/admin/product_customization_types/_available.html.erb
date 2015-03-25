@@ -20,7 +20,7 @@
             <%= link_to_with_icon 'add', '', url_for(
               controller: "admin/product_customization_types",
               id: available_product_customization_type,
-              product_id: @product.permalink,
+              product_id: @product.slug,
               action: "select",
               product_customization_type_id:  available_product_customization_type), remote: true, class: 'btn btn-success btn-sm' %>
           </td>

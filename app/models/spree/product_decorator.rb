@@ -9,11 +9,6 @@ module Spree
     # allowed customizations
     has_and_belongs_to_many :product_customization_types
 
-    # removed make_permalink as it is removed from spree and friendly_id does this for you.
-    # make_permalink field: :slug
-    # might be able to remove later.
-    alias_attribute :permalink, :slug
-
     private
 
     def attach_option_values(ad_hoc_option_type)
