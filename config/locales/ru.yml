@@ -7,6 +7,7 @@ ru:
   edit_option_values: "Изменить значения опции"
   notice_messages:
     option_value_removed: "Значение опции удалено"
+    option_type_removed: "Значение опции удалено" # translate value to type
     product_customization_type_removed: "Типа настройки товара удалён"
     ad_hoc_variant_exclusion_removed: "Исключение удалено"
   ad_hoc_variant_exclusion: 'Специальный вариант исключения'

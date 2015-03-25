@@ -1,7 +1,7 @@
 module Spree
   class Admin::ProductCustomizationTypesController < Admin::ResourceController
-    before_filter :load_product, only: [:selected, :available, :remove]
-    before_filter :load_calculators, only: [:new, :edit]
+    before_action :load_product, only: [:selected, :available, :remove]
+    before_action :load_calculators, only: [:new, :edit]
 
     def load_calculators
       @calculators = ProductCustomizationType.calculators.sort_by(&:name)

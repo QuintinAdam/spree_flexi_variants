@@ -1,10 +1,11 @@
-<% # need a drop-down for every ad_hoc_option_type %>
-
-<% @product.ad_hoc_option_types.each do |ahot| %>
-
-<p>
-<label>Choose a value for option type:<%= label_tag ahot.option_type.presentation%></label>
-  <%= select_tag "ad_hoc_option_type[#{ahot.id}", options_from_collection_for_select(ahot.ad_hoc_option_values, 'id', 'name'), {include_blank: 'All Values'} %>
-  <br/>
-</p>
-<% end %>
+<div data-hook="admin_ad_hoc_variant_exclusions_form_fields" class="row">
+  <%# need a drop-down for every ad_hoc_option_type %>
+  <% @product.ad_hoc_option_types.each do |ad_hoc_option_type| %>
+    <div class="col-md-12 form-group">
+      <label>
+        Choose a value for option type: <%= label_tag ad_hoc_option_type.option_type.presentation %>
+      </label>
+      <%= select_tag "ad_hoc_option_type[#{ad_hoc_option_type.id}", options_from_collection_for_select(ad_hoc_option_type.ad_hoc_option_values, 'id', 'name'), {include_blank: 'All Values', class: "form-control" }%>
+    </div>
+  <% end %>
+</div>

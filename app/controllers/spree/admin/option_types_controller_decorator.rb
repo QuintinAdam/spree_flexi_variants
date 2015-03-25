@@ -1,7 +1,7 @@
 module Spree
   Admin::OptionTypesController.class_eval do
-    # not sure if I have to repeat the 'before_filter' for the original option_types account
-    before_filter :load_product_decorator, only: [:select_ad_hoc, :available_ad_hoc]
+    # not sure if I have to repeat the 'before_action' for the original option_types account
+    before_action :load_product_decorator, only: [:select_ad_hoc, :available_ad_hoc]
 
     def available_ad_hoc
       set_available_ad_hoc_option_types
