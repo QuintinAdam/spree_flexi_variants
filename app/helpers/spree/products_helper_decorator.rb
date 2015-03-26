@@ -72,9 +72,9 @@ module Spree
       plus_or_minus=""
 
       if ah_ov.price_modifier>0
-        plus_or_minus = t("add")
+        plus_or_minus = Spree.t("add")
       elsif ah_ov.price_modifier<0
-        plus_or_minus =t("subtract")
+        plus_or_minus = Spree.t("subtract")
       end
 
       ah_ov.price_modifier == 0 ? "" : " (#{plus_or_minus} #{Spree::Money.new(ah_ov.price_modifier.abs).to_s})"

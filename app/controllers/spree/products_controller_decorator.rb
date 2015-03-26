@@ -12,7 +12,6 @@ module Spree
 
       # FIXTHIS
       # possible new if we can't get it to use the show
-      # product has a slug not permalink
       @product = Product.friendly.find(params[:product_id])
       return unless @product
 
