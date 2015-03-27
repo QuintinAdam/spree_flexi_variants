@@ -1,29 +1,24 @@
 <%= content_for :head do %>
-
-  <% if !@product.ad_hoc_variant_exclusions.empty? %>
+  <% if @product.ad_hoc_variant_exclusions.present? %>
     <%= javascript_tag do %>
       var exclusions = [
-      <% @product.ad_hoc_variant_exclusions.each do |excl| %>
-  {
-  <%# account for every option type, even if empty %>
-  <% @product.ad_hoc_option_types.each do |ot| %>
-    <% ov=excl.excluded_ad_hoc_option_values.detect { |eov| eov.ad_hoc_option_value.option_type == ot } %>
-
-    <% ov_str = ov.nil? ? "*" : ov.ad_hoc_option_value.id.to_s %>
-    <%= raw "'ad_hoc_option_values_#{ot.id}':'#{ov_str}'" %>
-    <% unless ot == @product.ad_hoc_option_types.last %>
-      ,
-    <% end %>
-  <% end %>
-  }
-  <% unless excl== @product.ad_hoc_variant_exclusions.last %>
-    ,
-  <% end %>
-      <% end %>
+        <% @product.ad_hoc_variant_exclusions.each do |ad_hoc_variant_exclusion| %>
+          {
+            <% @product.ad_hoc_option_types.each do |ad_hoc_option_type| %>
+              <% option_value = ad_hoc_variant_exclusion.excluded_ad_hoc_option_values.detect { |excluded_option_value| excluded_option_value.ad_hoc_option_value.option_type == ad_hoc_option_type } %>
+              <% option_value_string = option_value.nil? ? "*" : option_value.ad_hoc_option_value.id.to_s %>
+              <%= raw "'ad_hoc_option_values_#{ad_hoc_option_type.id}':'#{option_value_string}'" %>
+              <% unless ad_hoc_option_type == @product.ad_hoc_option_types.last %>
+                ,
+              <% end %>
+            <% end %>
+          }
+          <% unless ad_hoc_variant_exclusion == @product.ad_hoc_variant_exclusions.last %>
+            ,
+          <% end %>
+        <% end %>
       ];
     <% end %>
-
-    <%= javascript_include_tag 'store/spree_flexi_variants_exclusions' %>
-
-  <% end %> <%# if exclusions %>
-<% end %> <%# content_for %>
+    <%= javascript_include_tag 'spree/frontend/spree_flexi_variants_exclusions' %>
+  <% end %>
+<% end %>

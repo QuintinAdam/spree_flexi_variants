@@ -4,3 +4,4 @@ Deface::Override.new(
   insert_bottom: "[data-hook='cart_item_description'], #cart_item_description[data-hook]",
   partial: "spree/orders/cart_item_description"
 )
+

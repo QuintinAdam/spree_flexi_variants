@@ -1,6 +1,6 @@
 # encoding: utf-8
 require 'carrierwave'
-
+# feel like this should switch to paperclip and just use sprees defaults
 module Spree
   class CustomizationImageUploader < CarrierWave::Uploader::Base
 
