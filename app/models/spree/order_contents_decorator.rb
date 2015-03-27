@@ -2,34 +2,34 @@ module Spree
   OrderContents.class_eval do
 
     private
-
+    #this whole thing needs a refactor!
     def add_to_line_item(variant, quantity, options = {})
       line_item = grab_line_item_by_variant(variant, false, options)
 
-     if line_item
-       line_item.quantity += quantity.to_i
-       line_item.currency = currency unless currency.nil?
+      if line_item
+        line_item.quantity += quantity.to_i
+        line_item.currency = currency unless currency.nil?
       else
-        options[:currency] = order.currency
-        # might not need to pass in options #NEEDTOCHECK
-        line_item = order.line_items.new(quantity: quantity, variant: variant, options: options)
-        product_customizations = options[:product_customizations]
-        line_item.product_customizations = product_customizations
+        opts = { currency: order.currency }.merge ActionController::Parameters.new(options).permit(PermittedAttributes.line_item_attributes)
+        line_item = order.line_items.new(quantity: quantity, variant: variant, options: opts)
 
-        product_customizations.each { |product_customization| product_customization.line_item = line_item }
-
-        product_customizations.map(&:save) # it is now safe to save the customizations we built
+        product_customizations_ids = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
+        product_customizations_values = product_customizations_ids.map do |cid|
+            ProductCustomization.find(product_customization_type_id: cid)
+        end
+        line_item.product_customizations = product_customizations_values
+        product_customizations_values.each { |product_customization| product_customization.line_item = line_item }
+        product_customizations_values.map(&:save) # it is now safe to save the customizations we built
 
         # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
         # we postponed it (performance reasons) until we actually know we needed them
-        product_option_values = []
-        ad_hoc_option_value = params[:ad_hoc_option_values]
-        ad_hoc_option_value.each do |cid|
-          product_option_values << AdHocOptionValue.find(cid)
+        ad_hoc_option_value_ids = ( !!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [] )
+        product_option_values = ad_hoc_option_value_ids.map do |cid|
+          AdHocOptionValue.find(cid)
         end
         line_item.ad_hoc_option_values = product_option_values
 
-        offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations.map {|product_customization| product_customization.price(variant)}.sum
+        offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations_values.map {|product_customization| product_customization.price(variant)}.sum
 
         if currency
           line_item.currency = currency unless currency.nil?

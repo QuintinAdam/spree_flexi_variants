@@ -1,7 +1,9 @@
 module Spree
   Order.class_eval do
     # FIXTHIS this is exactly the same it seems as Order Content add to line item.
+    #this whole thing needs a refactor!
     def add_variant(variant, quantity = 1, options = {})
+      # grab_line_item_by_variant???
       current_item = find_line_item_by_variant(variant, options)
       if current_item
         current_item.quantity += quantity
@@ -9,23 +11,25 @@ module Spree
       else
         current_item = LineItem.new(quantity: quantity, variant: variant, options: options)
 
-        product_customizations = options[:product_customizations]
-        current_item.product_customizations = product_customizations
-
-        product_customizations.each { |product_customization| product_customization.current_item = current_item }
-
-        product_customizations.map(&:save) # it is now safe to save the customizations we built
+        product_customizations_ids = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
+        product_customizations_values = product_customizations_ids.map do |cid|
+            ProductCustomization.find(product_customization_type_id: cid)
+        end
+        current_item.product_customizations = product_customizations_values
+        product_customizations_values.each { |product_customization| product_customization.line_item = current_item }
+        product_customizations_values.map(&:save) # it is now safe to save the customizations we built
 
         # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
         # we postponed it (performance reasons) until we actaully knew we needed them
-        product_option_values = []
-        ad_hoc_option_value = params[:ad_hoc_option_values]
-        ad_hoc_option_value.each do |cid|
-          product_option_values << AdHocOptionValue.find(cid)
+        ad_hoc_option_value_ids = ( !!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [] )
+        product_option_values = ad_hoc_option_value_ids.map do |cid|
+          AdHocOptionValue.find(cid)
         end
         current_item.ad_hoc_option_values = product_option_values
 
-        current_item.price   = variant.price + product_option_values.map(&:price_modifier).compact.sum + product_customizations.map {|product_customization| product_customization.price(variant)}.sum
+        offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations_values.map {|product_customization| product_customization.price(variant)}.sum
+
+        current_item.price = variant.price + offset_price
 
         self.line_items << current_item
       end
