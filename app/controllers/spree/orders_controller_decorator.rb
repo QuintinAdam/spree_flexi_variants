@@ -4,27 +4,16 @@ module Spree
     include ProductCustomizations
     include AdHocUtils
 
-    # the inbound variant is determined either from products[pid]=vid or variants[master_vid], depending on whether or not the product has_variants, or not
-    #
-    # Currently, we are assuming the inbound ad_hoc_option_values and customizations apply to the entire inbound product/variant 'group', as more surgery
-    # needs to occur in the cart partial for this to be done 'right'
-    #
-    # Adds a new item to the order (creating a new order if none already exists)
-    def populate
-      # populator = Spree::OrderPopulator.new(current_order(create_order_if_necessary: true), current_currency)
-      # OLD_CODE ^ Spree 3.0.0 removed OrderPopulator and moved the logic into OrderContents. You no longer pass in the current_currency.
-      populator = Spree::OrderContents.new(current_order(create_order_if_necessary: true))
+    before_action :set_option_params_values, only: [:populate]
 
-      if populator.populate(params[:variant_id], params[:quantity], ad_hoc_option_value_ids, product_customizations)
-        current_order.ensure_updated_shipments
+    private
 
-        respond_with(@order) do |format|
-          format.html { redirect_to cart_path }
-        end
-      else
-        flash[:error] = populator.errors.full_messages.join(" ")
-        redirect_to :back
-      end
+    def set_option_params_values
+      params[:options] ||= {}
+      params[:options][:ad_hoc_option_values] = params[:ad_hoc_option_values] if params[:ad_hoc_option_values]
+      params[:options][:product_customizations] = params[:product_customizations] if params[:product_customizations]
+      params[:options][:customization_price] = params[:customization_price] if params[:customization_price]
     end
+
   end
 end

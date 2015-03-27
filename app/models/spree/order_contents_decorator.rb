@@ -1,92 +1,47 @@
 module Spree
   OrderContents.class_eval do
-    # Get current line item for variant if exists
-    # Add variant qty to line_item
-    def add(variant, quantity = 1, currency = nil, shipment = nil, ad_hoc_option_value_ids = [], product_customizations = [])
-      line_item = add_to_line_item(variant, quantity, currency, shipment, ad_hoc_option_value_ids, product_customizations)
-      reload_totals
-      PromotionHandler::Cart.new(order, line_item).activate
-      ItemAdjustments.new(line_item).update
-      reload_totals
-      line_item
-    end
-
-    #moved from OrderPopulator to OrderContents
-    # FIXTHIS file
-    def populate(variant_id, quantity, ad_hoc_option_value_ids = [], product_customizations = [])
-      attempt_cart_add(variant_id, quantity, ad_hoc_option_value_ids, product_customizations)
-      valid?
-    end
 
     private
-      def add_to_line_item(variant, quantity, currency=nil, shipment=nil, ad_hoc_option_value_ids = [], product_customizations = [])
-        line_item = grab_line_item_by_variant(variant, false, ad_hoc_option_value_ids, product_customizations)
 
-        if line_item
-          line_item.target_shipment = shipment
-          line_item.quantity += quantity.to_i
+    def add_to_line_item(variant, quantity, options = {})
+      line_item = grab_line_item_by_variant(variant, false, options)
+
+     if line_item
+       line_item.quantity += quantity.to_i
+       line_item.currency = currency unless currency.nil?
+      else
+        options[:currency] = order.currency
+        # might not need to pass in options #NEEDTOCHECK
+        line_item = order.line_items.new(quantity: quantity, variant: variant, options: options)
+        product_customizations = options[:product_customizations]
+        line_item.product_customizations = product_customizations
+
+        product_customizations.each { |product_customization| product_customization.line_item = line_item }
+
+        product_customizations.map(&:save) # it is now safe to save the customizations we built
+
+        # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
+        # we postponed it (performance reasons) until we actually know we needed them
+        product_option_values = []
+        ad_hoc_option_value = params[:ad_hoc_option_values]
+        ad_hoc_option_value.each do |cid|
+          product_option_values << AdHocOptionValue.find(cid)
+        end
+        line_item.ad_hoc_option_values = product_option_values
+
+        offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations.map {|product_customization| product_customization.price(variant)}.sum
+
+        if currency
           line_item.currency = currency unless currency.nil?
+          line_item.price    = variant.price_in(currency).amount + offset_price
         else
-          line_item = order.line_items.new(quantity: quantity, variant: variant)
-          line_item.target_shipment = shipment
-
-          line_item.product_customizations = product_customizations
-          product_customizations.each {|pc| pc.line_item = line_item}
-
-          product_customizations.map(&:save) # it is now safe to save the customizations we built
-
-          # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
-          # we postponed it (performance reasons) until we actaully knew we needed them
-          povs=[]
-          ad_hoc_option_value_ids.each do |cid|
-            povs << AdHocOptionValue.find(cid)
-          end
-          line_item.ad_hoc_option_values = povs
-
-          offset_price   = povs.map(&:price_modifier).compact.sum + product_customizations.map {|pc| pc.price(variant)}.sum
-
-          if currency
-            line_item.currency = currency unless currency.nil?
-            line_item.price    = variant.price_in(currency).amount + offset_price
-          else
-            line_item.price    = variant.price + offset_price
-          end
-        end
-
-        line_item.save
-        line_item
-      end
-
-      # FIXTHIS attempt_cart_add is very similar to add_to_line_item and add_to_line_item from spree has more improvements
-      #  also similar code in https://github.com/bonobos/spree/blob/14c56cad4570452db956372c151a09f4552c8158/frontend/app/controllers/spree/orders_controller.rb#L48
-      def attempt_cart_add(variant_id, quantity, ad_hoc_option_value_ids, product_customizations)
-        quantity = quantity.to_i
-        # 2,147,483,647 is crazy.
-        # See issue #2695.
-        if quantity > 2_147_483_647
-          #fix this scope: :order_populator changed to order contents?
-          errors.add(:base, Spree.t(:please_enter_reasonable_quantity, scope: :order_contents))
-          return false
-        end
-
-        variant = Spree::Variant.find(variant_id)
-        if quantity > 0
-          line_item = @order.contents.add(variant, quantity, currency, nil, ad_hoc_option_value_ids, product_customizations)
-          unless line_item.valid?
-            errors.add(:base, line_item.errors.messages.values.join(" "))
-            return false
-          end
+          line_item.price    = variant.price + offset_price
         end
       end
 
-      def grab_line_item_by_variant(variant, raise_error = false, ad_hoc_option_value_ids = [], product_customizations = [])
-        line_item = order.find_line_item_by_variant(variant, ad_hoc_option_value_ids, product_customizations)
-
-        if !line_item.present? && raise_error
-          raise ActiveRecord::RecordNotFound, "Line item not found for variant #{variant.sku}"
-        end
-
-        line_item
-      end
+      line_item.target_shipment = options[:shipment] if options.has_key? :shipment
+      line_item.save!
+      line_item
+    end
   end
 end
