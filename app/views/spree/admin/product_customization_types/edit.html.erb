@@ -11,9 +11,10 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <span id="customizable_product_options_value" data-hook>
+<%# might not need this %>
+<!--   <span id="customizable_product_options_value" data-hook>
     <%= button_link_to Spree.t(:add_option_value), "javascript:;", icon: 'add', :'data-target' => "tbody#customizable_product_options", class: 'btn-success spree_add_fields'  %>
-  </span>
+  </span> -->
 <% end %>
 
 <%= render 'spree/admin/shared/error_messages', target: @product_customization_type %>
