@@ -8,8 +8,7 @@
   <td><%= f.text_field :description, class: "form-control" %></td>
   <% if editable %>
     <td class="actions actions-<1 text-center">
-      <%# FIXTHIS might need a remove route %>
-      <%= (link_to_icon_remove_fields f) %>
+      <%= link_to_remove f, no_text: true %>
     </td>
   <% else %>
     <td class="actions actions-0 text-center">
