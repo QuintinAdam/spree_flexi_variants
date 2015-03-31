@@ -11,10 +11,9 @@
 <% end %>
 
 <% content_for :page_actions do %>
-<%# might not need this %>
-<!--   <span id="customizable_product_options_value" data-hook>
+  <span id="customizable_product_options_value" data-hook>
     <%= button_link_to Spree.t(:add_option_value), "javascript:;", icon: 'add', :'data-target' => "tbody#customizable_product_options", class: 'btn-success spree_add_fields'  %>
-  </span> -->
+  </span>
 <% end %>
 
 <%= render 'spree/admin/shared/error_messages', target: @product_customization_type %>
@@ -27,21 +26,20 @@
     <table class="table index" id='customizable_product_options' data-hook>
       <thead>
         <tr data-hook="customizable_product_options_header">
-          <th><%= t("name") %></th>
-          <th><%= t("presentation") %></th>
+          <th><%= t("name") %><span class="required">*</span></th>
+          <th><%= t("presentation") %><span class="required">*</span></th>
           <th><%= t("description") %></th>
           <th class="actions"></th>
         </tr>
       </thead>
       <tbody id="customizable_product_options">
-        <% if @product_customization_type.customizable_product_options.empty? %>
-          <tr id="none" data-hook="option_none">
-            <td colspan="2"><%= Spree.t(:none) %></td>
-            <td class="actions text-center"></td>
-          </tr>
+        <% if @product_customization_type.calculator.type == "Spree::Calculator::NoCharge" %>
+          <%= f.fields_for :customizable_product_options do |customizable_form| %>
+            <%= render partial: "customizable_product_option_fields", locals: { f: customizable_form, editable: true } %>
+          <% end %>
         <% else %>
           <%= f.fields_for :customizable_product_options do |customizable_form| %>
-            <%= render partial: "customizable_product_option_fields", locals: { f: customizable_form } %>
+            <%= render partial: "customizable_product_option_fields", locals: { f: customizable_form, editable: false } %>
           <% end %>
         <% end %>
       </tbody>

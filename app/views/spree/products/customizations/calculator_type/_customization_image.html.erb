@@ -1,7 +1,6 @@
 <%# render the (possibly shared) calculator %>
 <% cust_dom_id = "customization_image_#{product_customization_type.customizable_product_options.first.id}" %>
-<%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}",
-           locals: {calculator: product_customization_type.calculator} %>
+<%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}", locals: {calculator: product_customization_type.calculator} %>
 <%# add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
 <%= content_for :head do %>
@@ -18,18 +17,18 @@
 <% end %>
 
 <div class="col-md-6 form-group">
-  <%= field_set_tag product_customization_type.presentation do %>
-    <% option = product_customization_type.customizable_product_options.first %>
-    <h5 class="presentation-for-customizable-product-option custom-image"><%= option.presentation %></h5>
-    <p><%= option.description %></p>
-    <div class="form-for-customizable-product-option custom-image">
+  <% option = product_customization_type.customizable_product_options.first %>
+  <div class="form-for-customizable-product-option custom-image">
+    <fieldset>
+      <p><%= product_customization_type.description  %></p>
+      <h5><%= option.presentation %></h5>
       <%= file_field_tag "#{param_prefix}[#{product_customization_type.customizable_product_options.first.id}][customization_image]", class: "customization", id: cust_dom_id %>
+      <p><%= option.description %></p>
       <%# the price is stored here on change, and later collected by the product-wide updatePrice() %>
-      <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
-      <br>
       <%= link_to t("reset"),"" %>
-    </div>
-  <% end # field_set_tag %>
+      <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
+    </fieldset>
+  </div>
 </div>
 
 <%# create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>

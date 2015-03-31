@@ -2,33 +2,47 @@
   <%# for finding optional partials %>
   <% lookup = ActionView::LookupContext.new(ActionController::Base.view_paths, {formats: [:html]}) %>
 
-  <div class= 'col-sm-12' id="product-customizations">
-    <h3 class="product-section-title"><%= t(:customizations) %></h3>
+  <div id="product-customizations">
+    <div class= 'col-sm-12'>
+      <h3 class="product-section-title"><%= t(:customizations) %></h3>
+    </div>
     <ul class="list-group list-unstyled">
-      <% @product.product_customization_types.each do |product_customization_type| %>
-        <%# render a custom partial based on the customization name? %>
-        <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
-        <% partial_name = "spree/products/customizations/customization_type/#{product_customization_type.name}" %>
-        <% if lookup.exists?(partial_name,nil,true) %>
-          <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
-        <% else %>
-          <% partial_name = "spree/products/customizations/calculator_type/#{calculator_name(product_customization_type)}" %>
+      <% @product.product_customization_types.group_by{ |x| calculator_name(x) }.each do |product_customization_grouped_by_calc_type| %>
+        <% product_clac_name, product_customization_type_group = product_customization_grouped_by_calc_type %>
+        <div class='col-sm-12'>
+          <legend><%= product_customization_type_group.first.presentation %></legend>
+        </div>
+        <% product_customization_type_group.each do |product_customization_type| %>
+          <%# render a custom partial based on the customization name? %>
+          <% param_prefix = "product_customizations[#{product_customization_type.id}]" %>
+          <% partial_name = "spree/products/customizations/customization_type/#{product_customization_type.name}" %>
           <% if lookup.exists?(partial_name,nil,true) %>
             <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
           <% else %>
-            <li>
-              <div class="col-md-6 form-group">
-                <%= field_set_tag product_customization_type.presentation do %>
-                  <% product_customization_type.customizable_product_options.each do |customizable_product_option| %>
-                    <h5 class="presentation-for-customizable-product-option"><%= customizable_product_option.presentation %></h5>
-                    <div class="form-for-customizable-product-option"><%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control" %></div>
-                  <% end # options.each %>
-                <% end %> <%# field_set_tag %>
-              </div>
-            </li>
-          <% end %> <%# else %>
-        <% end %> <%# else %>
-      <% end %> <%# each customization type %>
+            <% partial_name = "spree/products/customizations/calculator_type/#{product_clac_name}" %>
+            <% if lookup.exists?(partial_name,nil,true) %>
+              <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
+            <% else %>
+              <li>
+                <div class="col-md-6 form-group">
+                  <fieldset>
+                    <p><%= product_customization_type.description  %></p>
+                    <% product_customization_type.customizable_product_options.each do |customizable_product_option| %>
+                      <h5 class="presentation-for-customizable-product-option">
+                        <%= customizable_product_option.presentation %>
+                      </h5>
+                      <div class="form-for-customizable-product-option">
+                        <%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control", placeholder:  customizable_product_option.description%>
+                      </div>
+                    <% end # options.each %>
+                  </fieldset>
+                </div>
+              </li>
+            <% end %> <%# lookup.exists? %>
+          <% end %> <%# lookup.exists? %>
+        <% end %> <%# each product_customization_type %>
+        <div class='col-sm-12'></div>
+      <% end %> <%# each product_customization_grouped_by_calc_type %>
     </ul>
   </div> <!-- product-customizations -->
 <% end %>

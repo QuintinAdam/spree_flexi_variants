@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe 'Ad Hoc Option Values', js: true do
   describe 'remove links' do
-    extend AuthorizationHelpers::Request
+    extend Spree::TestingSupport::AuthorizationHelpers::Request
     stub_authorization!
 
     before do
       # stub out jirafe so it doesn't choke on the register call
-      Spree::Dash::Config.app_id = nil
-      Spree::Dash::Config.app_token = nil
-      Spree::Dash::Config.site_id = nil
-      Spree::Dash::Config.token = nil
+      # Spree::Dash::Config.app_id = nil
+      # Spree::Dash::Config.app_token = nil
+      # Spree::Dash::Config.site_id = nil
+      # Spree::Dash::Config.token = nil
 
-      Spree::Dash::Jirafe.should_receive(:register).
-                        and_return({ app_id: '1', app_token: '2', site_id: '3', site_token: '4' })
+      # Spree::Dash::Jirafe.should_receive(:register).
+      #                   and_return({ app_id: '1', app_token: '2', site_id: '3', site_token: '4' })
 
       test_product = Spree::Product.create!(name: 'Test Product', price: 12.99)
       color_option_type = Spree::OptionType.create!(name: 'color', presentation: 'Color')

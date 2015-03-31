@@ -10,8 +10,8 @@ module Spree
 
     def set_option_params_values
       params[:options] ||= {}
-      params[:options][:ad_hoc_option_values] = params[:ad_hoc_option_values] if params[:ad_hoc_option_values]
-      params[:options][:product_customizations] = params[:product_customizations] if params[:product_customizations]
+      params[:options][:ad_hoc_option_values] = ad_hoc_option_value_ids
+      params[:options][:product_customizations] = product_customizations
       params[:options][:customization_price] = params[:customization_price] if params[:customization_price]
     end
 

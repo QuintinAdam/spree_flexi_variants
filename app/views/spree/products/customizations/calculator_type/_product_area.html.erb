@@ -1,57 +1,39 @@
 <% # render the (possibly shared) calculator %>
-
 <% width_dom_id = "product_area_input_#{product_customization_type.customizable_product_options.first.id}" %>
 <% height_dom_id = "product_area_input_#{product_customization_type.customizable_product_options.second.id}" %>
+<%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}", locals: {calculator: product_customization_type.calculator} %>
+<% # add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
-<%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}",
-           locals: {calculator: product_customization_type.calculator} %>
+<%= content_for :head do %>
+  <%= javascript_tag do %>
+    function product_area_keyup() {
+      var text_field = $(this);
 
-  <% # add the 'change' listener for this particular file input, which will make use of the calculator above %>
+      delay(function(){
 
-  <%= content_for :head do %>
-    <%= javascript_tag do %>
+        // update the hidden price field for this file input
+        $(text_field).parent().parent().find(".customization_price").val(calculate_product_area_price(text_field));
+        updatePrice();
+      }, 1000 ); // delay
+    }; // keyup
 
-      function product_area_keyup() {
-        var tf = $(this);
-
-        delay(function(){
-
-          // update the hidden price field for this file input
-          $(tf).parent().parent().find(".customization_price").val(calculate_product_area_price(tf));
-          updatePrice();
-        }, 1000 ); // delay
-      }); // keyup
-
-      $(document).on('keyup', '#<%= width_dom_id %>', product_area_keyup);
-      $(document).on('keyup', '#<%= height_dom_id %>', product_area_keyup);
-    <% end %>
+    $(document).on('keyup', '#<%= width_dom_id %>', product_area_keyup);
+    $(document).on('keyup', '#<%= height_dom_id %>', product_area_keyup);
   <% end %>
+<% end %>
 
-<%= field_set_tag product_customization_type.presentation do %>
-  <ol>
-    <li>
-      <% option = product_customization_type.customizable_product_options.first %>
-
-      <label for="<%= width_dom_id %>"><%= option.description %></label>
-      <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
-      <%= text_field_tag "#{param_prefix}[#{option.id}]",
-                         "",
-                         id: width_dom_id ,style: "float: left;", class: "customization" %>
-
-    </li>
-
-
-    <li>
-      <% option = product_customization_type.customizable_product_options.second %>
-
-      <label for="<%= height_dom_id %>"><%= option.description %></label>
-      <%= text_field_tag "#{param_prefix}[#{option.id}]",
-                         "",
-                         id: height_dom_id ,style: "float: left;", class: "customization" %>
-    </li>
-
-    <% # the price is stored here on change, and later collected by the product-wide updatePrice() %>
+<div class="col-md-6 form-group">
+  <% option = product_customization_type.customizable_product_options.first %>
+  <fieldset>
+    <p><%= product_customization_type.description  %></p>
+    <h5><%= option.presentation %></h5>
+    <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
+    <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: width_dom_id, class: "customization form-control", placeholder: option.description %>
+    <% option = product_customization_type.customizable_product_options.second %>
+    <h5><%= option.presentation %></h5>
+    <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: height_dom_id, class: "customization form-control", placeholder: option.description %>
+    <%# the price is stored here on change, and later collected by the product-wide updatePrice() %>
     <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
+  </fieldset>
+</div>
 
-  </ol>
-<% end # field_set_tag %>

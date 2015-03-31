@@ -1,22 +1,22 @@
-<% # render the (possibly shared) calculator %>
+<%# render the (possibly shared) calculator %>
 
 <% cust_dom_id = "engraving_input_#{product_customization_type.customizable_product_options.first.id}" %>
 
 <%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}",
            locals: {calculator: product_customization_type.calculator} %>
 
-  <% # add the 'change' listener for this particular file input, which will make use of the calculator above %>
+  <%# add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
   <%= content_for :head do %>
     <%= javascript_tag do %>
       $(document).on('keyup', '#<%= cust_dom_id %>', function(e) {
 
-        var tf = $(this);
+        var text_field = $(this);
 
         delay(function(){
 
           // update the hidden price field for this file input
-          $(tf).siblings(".customization_price").val(calculate_engraving_price(tf));
+          $(text_field).siblings(".customization_price").val(calculate_engraving_price(text_field));
 
           updatePrice();
         }, 1000 ); // delay
@@ -24,20 +24,16 @@
     <% end %>
   <% end %>
 
-<%= field_set_tag product_customization_type.presentation do %>
+<div class="col-md-6 form-group">
   <% option = product_customization_type.customizable_product_options.first %>
-  <ol>
-    <li>
-      <label for="<%= cust_dom_id %>"><%= option.description %></label>
-
-      <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
-
-      <%= text_field_tag "#{param_prefix}[#{product_customization_type.customizable_product_options.first.id}]",
-                         "",
-                         id: cust_dom_id ,style: "float: left;", class: "customization" %>
-
-      <% # the price is stored here on change, and later collected by the product-wide updatePrice() %>
+  <div class="form-for-customizable-product-option">
+    <fieldset>
+      <p><%= product_customization_type.description  %></p>
+      <h5><%= option.presentation %></h5>
+      <%= text_field_tag "#{param_prefix}[#{product_customization_type.customizable_product_options.first.id}]", "", id: cust_dom_id, class: "customization form-control", placeholder: option.description %>
+      <%# the price is stored here on change, and later collected by the product-wide updatePrice() %>
       <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
-    </li>
-  </ol>
-<% end # field_set_tag %>
+    </fieldset>
+  </div>
+</div>
+

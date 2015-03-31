@@ -4,7 +4,6 @@
     <script type="text/javascript">
       //<![CDATA[
       // First I need to set up a mapping for the variants on the screen so I can easily grab their prices
-
       var variant_price_map = {};
 
       <% if @product.has_variants? %>
@@ -62,14 +61,14 @@
     }
 
     function compute_variant_price_diff(base_price) {
-      var variant_price = base_price;
+      var variant_price = 0;
 
       $("#product-variants input[type='radio']:checked").each (function() {
         variant_price = variant_price_map[$(this).val()];
       });
 
       <% if @product.has_variants? %>
-        return variant_price-base_price;
+        return variant_price - base_price;
       <% else %>
         return variant_price;  // don't return a negative number if we don't have any variants
       <% end %>
