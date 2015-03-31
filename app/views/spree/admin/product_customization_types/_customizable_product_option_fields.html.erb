@@ -8,7 +8,8 @@
   <td><%= f.text_field :description, class: "form-control" %></td>
   <% if editable %>
     <td class="actions actions-<1 text-center">
-      <%= link_to_remove f, no_text: true %>
+    <!-- link_to_with_icon 'delete', '', remove_admin_ad_hoc_option_type_url(ad_hoc_option_type), class: 'btn btn-danger btn-sm' -->
+      <%= link_to_delete f, no_text: true %>
     </td>
   <% else %>
     <td class="actions actions-0 text-center">
