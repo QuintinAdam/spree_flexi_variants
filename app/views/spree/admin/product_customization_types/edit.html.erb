@@ -10,10 +10,12 @@
   <%= Spree.t(:editing_resource, resource: Spree::ProductCustomizationType.model_name.human) %> <span class="green">"<%= @product_customization_type.name %>"</span>
 <% end %>
 
-<% content_for :page_actions do %>
-  <span id="customizable_product_options_value" data-hook>
-    <%= button_link_to Spree.t(:add_option_value), "javascript:;", icon: 'add', :'data-target' => "tbody#customizable_product_options", class: 'btn-success spree_add_fields'  %>
-  </span>
+<% if @product_customization_type.calculator.type == "Spree::Calculator::NoCharge" %>
+  <% content_for :page_actions do %>
+    <span id="customizable_product_options_value" data-hook>
+      <%= button_link_to Spree.t(:add_option_value), "javascript:;", icon: 'add', :'data-target' => "tbody#customizable_product_options", class: 'btn-success spree_add_fields'  %>
+    </span>
+  <% end %>
 <% end %>
 
 <%= render 'spree/admin/shared/error_messages', target: @product_customization_type %>
