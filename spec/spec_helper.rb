@@ -11,7 +11,7 @@ require 'database_cleaner'
 require 'factory_girl'
 require 'ffaker'
 require 'shoulda-matchers'
-
+require 'pry'
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
@@ -36,4 +36,5 @@ RSpec.configure do |config|
   #     --seed 1234
   # config.order = "random"
   config.color = true
+  config.infer_spec_type_from_file_location!
 end

@@ -6,21 +6,12 @@ describe 'Ad Hoc Option Values', js: true do
     stub_authorization!
 
     before do
-      # stub out jirafe so it doesn't choke on the register call
-      # Spree::Dash::Config.app_id = nil
-      # Spree::Dash::Config.app_token = nil
-      # Spree::Dash::Config.site_id = nil
-      # Spree::Dash::Config.token = nil
-
-      # Spree::Dash::Jirafe.should_receive(:register).
-      #                   and_return({ app_id: '1', app_token: '2', site_id: '3', site_token: '4' })
-
-      test_product = Spree::Product.create!(name: 'Test Product', price: 12.99)
-      color_option_type = Spree::OptionType.create!(name: 'color', presentation: 'Color')
-      red_value = color_option_type.option_values.create!(name: 'red', presentation: 'Red')
-      green_value = color_option_type.option_values.create!(name: 'green', presentation: 'Green')
-      blue_value = color_option_type.option_values.create!(name: 'blue', presentation: 'Blue')
-      color_ad_hoc_option_type = Spree::AdHocOptionType.create!(option_type_id: color_option_type.id, product_id: test_product.id)
+      test_product = create(:product, name: 'Test Product', price: 12.99)
+      color_option_type = create(:option_type, name: 'color', presentation: 'Color')
+      red_value = create(:option_value, name: 'red', presentation: 'Red', option_type: color_option_type)
+      green_value = create(:option_value, name: 'green', presentation: 'Green', option_type: color_option_type)
+      blue_value = create(:option_value, name: 'blue', presentation: 'Blue', option_type: color_option_type)
+      color_ad_hoc_option_type = create(:ad_hoc_option_type, option_type_id: color_option_type.id, product_id: test_product.id)
       color_ad_hoc_option_type.ad_hoc_option_values.create!(option_value_id: red_value.id)
       color_ad_hoc_option_type.ad_hoc_option_values.create!(option_value_id: blue_value.id)
       color_ad_hoc_option_type.ad_hoc_option_values.create!(option_value_id: green_value.id)
@@ -29,22 +20,35 @@ describe 'Ad Hoc Option Values', js: true do
     it 'removes the associated option value when clicked' do
       visit '/admin'
       click_on 'Products'
+      expect(find('#sidebar-product').visible?).to eq(true)
+      within("#sidebar-product") do
+        click_on("Products")
+      end
+      within('.content-header') do
+        expect(page).to have_content('Products')
+      end
       click_on 'Test Product'
+      within('.content-header') do
+        expect(page).to have_content('Products / Test Product')
+      end
       click_on 'Ad Hoc Option Types'
-      click_on 'Edit'
-
+      find('.icon.icon-edit').click
       expect(page).to have_content('Editing Option Type')
-      expect(all('#option_values tr').length).to eq(4)
+      expect(all('#option_values tr').length).to eq(3)
 
-      first(:link, 'Remove').click
+      find('.icon.icon-delete').click
       expect(page).to_not have_content('No route matches')
-
+      expect(all('#option_values tr').length).to eq(2)
       visit '/admin'
       click_on 'Products'
+      within("#sidebar-product") do
+        click_on("Products")
+      end
       click_on 'Test Product'
       click_on 'Ad Hoc Option Types'
-      click_on 'Edit'
-      expect(all('#option_values tr').length).to eq(3)
+
+      find('.icon.icon-edit').click
+      expect(all('#option_values tr').length).to eq(2)
     end
   end
 end
