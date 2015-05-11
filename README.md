@@ -21,7 +21,7 @@ Use these when you want the ability to provide a highly customized product e.g. 
 Version Notes
 =============
 
-The branch you are currently on (spree-3-0-stable) is an upgrade-in-progress to spree 3.0.0.  Consider it beta right now.
+The branch spree-3-0-stable is an somewhat stable version for spree 3.0.0 with updated styles to match.
 
 Please see the Versionfile for working spree 2.4, 2.2, 2.0, 1.0, 0.70 and spree 0.60 versions
 
