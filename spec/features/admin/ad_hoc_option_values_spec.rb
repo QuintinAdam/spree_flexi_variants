@@ -95,7 +95,6 @@ describe 'Ad Hoc Option Values', js: true do
         check 'ad_hoc_option_type_ad_hoc_option_values_attributes_0_selected'
       end
       click_on('Update')
-      save_and_open_screenshot
       expect(page).to have_content('Ad hoc option type "color" has been successfully updated!')
       find('.btn-primary .icon.icon-edit').click
       expect find('#ad_hoc_option_type_is_required').should be_checked
@@ -104,6 +103,16 @@ describe 'Ad Hoc Option Values', js: true do
         expect find('#ad_hoc_option_type_ad_hoc_option_values_attributes_0_selected').should be_checked
       end
       click_on('Cancel')
+      expect(page).to have_content('Option Types')
+      #test deleting a option type
+      find('.icon.icon-delete').click
+      expect(page).to have_content('Option Type Removed')
+      expect(page).to have_content('No Ad hoc option type found, Add One!')
+      #test adding an option type
+      click_on('Add One')
+      find('.icon.icon-add').click
+      click_on('Update')
+      expect(all('#ad_hoc_option_types tr').length).to eq(1)
     end
 
     it 'ad hoc variant exclusions add/removes the associated option value when clicked' do
@@ -116,6 +125,12 @@ describe 'Ad Hoc Option Values', js: true do
       go_to_ad_hoc_variant_exclusions
       expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
       click_on('Add One')
+      select "red", from: 'ad_hoc_option_type_1'
+      select "small", from: 'ad_hoc_option_type_2'
+      click_on('Create')
+      expect(all('#listing_ad_hoc_variant_exclusions tr').length).to eq(2)
+      find('.icon.icon-delete').click
+      expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
     end
   end
 end
