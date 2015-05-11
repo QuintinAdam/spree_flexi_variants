@@ -34,7 +34,7 @@ FactoryGirl.define do
   factory :customized_product_option, class: Spree::CustomizedProductOption do
     product_customization { |p| p.association(:product_customization) }
     customizable_product_option { |p| p.association(:customizable_product_option) }
-    sequence(:value) { |n| "Customizaed Product Option Value ##{n} - #{Kernel.rand(9999)}" }
+    sequence(:value) { |n| "Customized Product Option Value ##{n} - #{Kernel.rand(9999)}" }
   end
 end
 
