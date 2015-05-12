@@ -1,8 +1,9 @@
 require 'spec_helper'
 
-describe 'Ad Hoc Option Values', js: true do
-  describe 'remove links' do
+describe 'Ad Hoc Option Values / Ad Hoc Variant Exclusions ', js: true do
+  describe 'test add links / remove links / add options values / remove options values/ update and cancel buttons' do
     extend Spree::TestingSupport::AuthorizationHelpers::Request
+    include IntegrationHelpers
     stub_authorization!
 
     before do
@@ -31,54 +32,21 @@ describe 'Ad Hoc Option Values', js: true do
       size_ad_hoc_option_type.ad_hoc_option_values.create!(option_value_id: large_value.id)
     end
 
-    def go_to_product
-      visit '/admin'
-      click_on 'Products'
-      expect(find('#sidebar-product').visible?).to eq(true)
-      within("#sidebar-product") do
-        click_on("Products")
-      end
-      within('.content-header') do
-        expect(page).to have_content('Products')
-      end
-      click_on 'Test Product'
-      within('.content-header') do
-        expect(page).to have_content('Products / Test Product')
-      end
-    end
-
-    def go_to_edit_ad_hoc_option_type
-      click_on 'Ad Hoc Option Types'
-      expect(page).to have_content('Add Option Types')
-      find('.btn-primary .icon.icon-edit').click
-      expect(page).to have_content('Editing Option Type')
-    end
-
-    def go_to_ad_hoc_variant_exclusions
-      click_on 'Ad Hoc Variant Exclusions'
-      expect(page).to have_content('Ad Hoc Variant Exclusions')
-    end
-
-    def go_to_edit_ad_hoc_variant_exclusions
-      click_on 'Ad Hoc Variant Exclusions'
-      expect(page).to have_content('Ad Hoc Variant Exclusions')
-      find('.btn-primary .icon.icon-edit').click
-      expect(page).to have_content('Editing Option Type')
-    end
-
     it 'ad hoc option types add/removes the associated option value when clicked' do
       setup_option_types_plus_ad_hoc_option_type
-      go_to_product
+      go_to_product_page
       go_to_edit_ad_hoc_option_type
 
       expect(all('#option_values tr').length).to eq(3)
 
       find('.icon.icon-delete').click
+      # no alert box here?
+
       expect(page).to_not have_content('No route matches')
 
       expect(all('#option_values tr').length).to eq(2)
 
-      go_to_product
+      go_to_product_page
 
       go_to_edit_ad_hoc_option_type
 
@@ -103,25 +71,29 @@ describe 'Ad Hoc Option Values', js: true do
         expect find('#ad_hoc_option_type_ad_hoc_option_values_attributes_0_selected').should be_checked
       end
       click_on('Cancel')
-      expect(page).to have_content('Option Types')
+      expect(page).to have_content('Add Option Types')
       #test deleting a option type
       find('.icon.icon-delete').click
+      # no alert?
+      # page.accept_alert
       expect(page).to have_content('Option Type Removed')
-      expect(page).to have_content('No Ad hoc option type found, Add One!')
+
       #test adding an option type
+      expect(page).to have_content('No Ad hoc option type found, Add One!')
       click_on('Add One')
       find('.icon.icon-add').click
       click_on('Update')
-      expect(all('#ad_hoc_option_types tr').length).to eq(1)
+      expect(all('#ad_hoc_option_types tr').length).to eq(2)
     end
 
+    ### ad hoc variant exclusions
     it 'ad hoc variant exclusions add/removes the associated option value when clicked' do
       setup_option_types_plus_ad_hoc_option_type
-      go_to_product
+      go_to_product_page
       go_to_ad_hoc_variant_exclusions
       expect(page).to have_content('You only need to configure exclusions when you have more than one ad hoc option type, Add One!')
       setup_option_types_plus_ad_hoc_option_type_number_two
-      go_to_product
+      go_to_product_page
       go_to_ad_hoc_variant_exclusions
       expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
       click_on('Add One')
@@ -130,7 +102,13 @@ describe 'Ad Hoc Option Values', js: true do
       click_on('Create')
       expect(all('#listing_ad_hoc_variant_exclusions tr').length).to eq(2)
       find('.icon.icon-delete').click
+      # no alert box here?
       expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
+    end
+
+    ### Product Customization
+    it 'product customization add/remove existing customization types' do
+      go_to_product_page
     end
   end
 end
