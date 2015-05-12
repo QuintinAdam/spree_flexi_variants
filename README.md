@@ -3,7 +3,6 @@ SpreeFlexiVariants
 
 This is a [spree](http://spreecommerce.com) extension that solves two use cases related to variants.  I call them **Ad Hoc Options** and **Product Customizations**.
 
-
 Ad Hoc Options
 --------------
 
@@ -17,17 +16,16 @@ Product Customizations
 
 Use these when you want the ability to provide a highly customized product e.g. "Cut to length 5.82cm", "Engrave 'thanks for the memories'", "Upload my image".  Full control over pricing is provided by the Spree calculator mechanism.
 
-
 Version Notes
 =============
 
-The branch you are currently on (spree-3-0-stable) is an upgrade-in-progress to spree 3.0.0.  Consider it beta right now.
+The branch spree-3-0-stable is an somewhat stable version for spree 3.0.0 with updated styles to match.
 
-Please see the Versionfile for working spree 2.4, 2.2, 2.0, 1.0, 0.70 and spree 0.60 versions
-
+Working with a older spree? Check out the original gem or many one of the forks. https://github.com/jsqu99/spree_flexi_variants
 
 Installation
 ------------
+
     # see the notes in Versionfile if you are using an older version of spree
     gem 'spree_flexi_variants', github: 'QuintinAdam/spree_flexi_variants', branch: 'spree-3-0-stable'
 
@@ -36,7 +34,6 @@ Installation
     bundle exec rails g spree_flexi_variants:install
 
 ## Examples
-
 
 Build a 'Cake'  product using **Ad Hoc Options** and **Product Customizations**
 
@@ -51,7 +48,3 @@ Build a 'Pizza' product using **Ad Hoc Options**. Note that the 'multi' option c
 ![Picture Frame](https://raw.github.com/jsqu99/spree_flexi_variants/master/doc/pizza_screenshot.png)
 
 See the [wiki](https://github.com/jsqu99/spree_flexi_variants/wiki) for more detail.
-
-Many, many thanks to [Brian Quinn](https://github.com/BDQ) for selflessly volunteering his time to mentor me throughout the development process.
-
-Copyright (c) 2011 Jeff Squires, released under the New BSD License
