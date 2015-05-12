@@ -3,12 +3,13 @@ Gem::Specification.new do |s|
   s.name        = 'spree_flexi_variants'
   s.version     = '3.0.1'
   s.summary     = 'This is a spree extension that solves two use cases related to variants.'
-  #s.description = 'Add (optional) gem description here'
+  s.description = 'Spree extension to create product variants as-needed'
   s.required_ruby_version = '>= 2.0.0'
 
-  s.author            = 'Jeff Squires'
-  s.email             = 'jeff.squires@gmail.com'
-  # s.homepage          = 'http://www.rubyonrails.org'
+  # s.original_author            = 'Jeff Squires'
+  s.author            = 'Quintin Adam'
+  s.email             = 'quintinjadam@gmail.com'
+  s.homepage          = 'https://github.com/QuintinAdam/spree_flexi_variants'
 
   s.files       = `git ls-files`.split("\n")
   s.test_files  = `git ls-files -- {spec}/*`.split("\n")
