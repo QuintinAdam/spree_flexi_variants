@@ -104,12 +104,9 @@ describe 'Ad Hoc Option Values / Ad Hoc Variant Exclusions ', js: true do
       find('.icon.icon-delete').click
       # no alert box here?
       expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
+      save_and_open_screenshot
     end
 
-    ### Product Customization
-    it 'product customization add/remove existing customization types' do
-      go_to_product_page
-    end
   end
 end
 
