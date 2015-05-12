@@ -109,6 +109,3 @@ describe 'Ad Hoc Option Values / Ad Hoc Variant Exclusions ', js: true do
 
   end
 end
-
-# save_and_open_page
-# save_and_open_screenshot
