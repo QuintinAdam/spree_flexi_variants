@@ -22,7 +22,7 @@
   <% end %>
 <% end %>
 
-<div class="col-md-6 form-group">
+<div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
   <% option = product_customization_type.customizable_product_options.first %>
   <fieldset>
     <p><%= product_customization_type.description  %></p>

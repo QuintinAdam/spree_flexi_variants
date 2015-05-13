@@ -24,7 +24,7 @@
               <%= render partial: partial_name, locals: {product_customization_type: product_customization_type, param_prefix: param_prefix} %>
             <% else %>
               <li>
-                <div class="col-md-6 form-group">
+                <div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
                   <fieldset>
                     <p><%= product_customization_type.description  %></p>
                     <% product_customization_type.customizable_product_options.each do |customizable_product_option| %>
