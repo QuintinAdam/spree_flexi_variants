@@ -1,10 +1,10 @@
 <%= render partial: 'spree/admin/shared/product_tabs', locals: {current: "Ad Hoc Variant Exclusions"} %>
 
-<h3><%= t("ad_hoc_variant_exclusions") %></h3>
+<h3><%= Spree.t("ad_hoc_variant_exclusions") %></h3>
 
 <% if @product.ad_hoc_option_types.size >= 2 %>
   <% content_for(:page_actions) do %>
-    <%= button_link_to t("new_ad_hoc_variant_exclusion"), spree.new_admin_product_ad_hoc_variant_exclusion_url, remote: true, class: 'btn-success', icon: 'add', id: 'new_ad_hoc_variant_exclusion_link' %>
+    <%= button_link_to Spree.t("new_ad_hoc_variant_exclusion"), spree.new_admin_product_ad_hoc_variant_exclusion_url, remote: true, class: 'btn-success', icon: 'add', id: 'new_ad_hoc_variant_exclusion_link' %>
   <% end %>
 
   <div id="new_ad_hoc_variant_exclusion"></div>
@@ -17,7 +17,7 @@
         <tr>
           <% sorted_option_types.each do |option_type| %>
             <th>
-              <%= t("option_value") %> for <%= t("option_type")%> <%= option_type.presentation %>
+              <%= Spree.t("option_value") %> for <%= Spree.t("option_type")%> <%= option_type.presentation %>
             </th>
           <% end %>
           <th class="actions"></th>
@@ -50,7 +50,7 @@
   <% end %>
 <% else %>
   <div class="alert alert-info no-objects-found">
-    <%= t(:ad_hoc_variant_exclusions_unavailable) %>,
+    <%=Spree.t(:ad_hoc_variant_exclusions_unavailable) %>,
     <%= link_to Spree.t(:add_one), spree.selected_admin_product_ad_hoc_option_types_url(@product) %>!
   </div>
 <% end %>

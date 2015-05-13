@@ -3,10 +3,10 @@
 
   <div id="ad_hoc_options">
     <div class='col-sm-12'>
-      <h3 class="product-section-title"><%= t(:select_variant_options) %></h3>
+      <h3 class="product-section-title"><%= Spree.t(:select_variant_options) %></h3>
       <% if @product.ad_hoc_variant_exclusions.present? %>
         <h6 id="not_all_available">
-          <%= t(:not_all_combinations_available) %>
+          <%= Spree.t(:not_all_combinations_available) %>
         </h6>
       <% end %>
     </div>

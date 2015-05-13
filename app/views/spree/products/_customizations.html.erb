@@ -4,7 +4,7 @@
 
   <div id="product-customizations">
     <div class= 'col-sm-12'>
-      <h3 class="product-section-title"><%= t(:customizations) %></h3>
+      <h3 class="product-section-title"><%=Spree.t(:customizations) %></h3>
     </div>
     <ul class="list-group list-unstyled">
       <% @product.product_customization_types.group_by{ |x| calculator_name(x) }.each do |product_customization_grouped_by_calc_type| %>

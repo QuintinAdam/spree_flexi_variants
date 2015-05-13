@@ -1,5 +1,5 @@
 <%= render 'spree/admin/shared/error_messages', target: @ad_hoc_variant_exclusion %>
-<h4><%= t("new_ad_hoc_variant_exclusion") %></h4>
+<h4><%= Spree.t("new_ad_hoc_variant_exclusion") %></h4>
 <%= form_for(@ad_hoc_variant_exclusion, url: admin_product_ad_hoc_variant_exclusions_url(@product)) do |f| %>
   <fieldset>
     <%= render partial: "form", locals: { f: f } %>
