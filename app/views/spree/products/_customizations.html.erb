@@ -25,17 +25,15 @@
             <% else %>
               <li>
                 <div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
-                  <fieldset>
-                    <p><%= product_customization_type.description  %></p>
-                    <% product_customization_type.customizable_product_options.each_with_index do |customizable_product_option, index| %>
-                      <h5 class="presentation-for-customizable-product-option">
-                        <%= customizable_product_option.presentation %>
-                      </h5>
-                      <div class="form-for-customizable-product-option <%= "customization_option_#{index}" %>">
-                        <%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control", placeholder:  customizable_product_option.description%>
-                      </div>
-                    <% end # options.each %>
-                  </fieldset>
+                  <p><%= product_customization_type.description  %></p>
+                  <% product_customization_type.customizable_product_options.each_with_index do |customizable_product_option, index| %>
+                    <h5 class="presentation-for-customizable-product-option">
+                      <%= customizable_product_option.presentation %>
+                    </h5>
+                    <div class="form-for-customizable-product-option <%= "customization_option_#{index}" %>">
+                      <%= text_field_tag "#{param_prefix}[#{customizable_product_option.id}]","", class: "customization form-control", placeholder:  customizable_product_option.description%>
+                    </div>
+                  <% end # options.each %>
                 </div>
               </li>
             <% end %> <%# lookup.exists? %>
