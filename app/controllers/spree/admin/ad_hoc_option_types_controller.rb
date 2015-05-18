@@ -19,7 +19,7 @@ module Spree
       # remove the entire exclusion
       @product = @ad_hoc_option_type.product
       @ad_hoc_option_type.destroy
-      redirect_to selected_admin_product_ad_hoc_option_types_url(@product), notice: I18n.t("notice_messages.option_type_removed")
+      redirect_to selected_admin_product_ad_hoc_option_types_url(@product), notice: I18n.t("spree.notice_messages.option_type_removed")
     end
 
     protected

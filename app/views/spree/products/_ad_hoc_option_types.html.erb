@@ -3,10 +3,10 @@
 
   <div id="ad_hoc_options">
     <div class='col-sm-12'>
-      <h3 class="product-section-title"><%= t(:select_variant_options) %></h3>
+      <h3 class="product-section-title"><%= Spree.t(:select_variant_options) %></h3>
       <% if @product.ad_hoc_variant_exclusions.present? %>
         <h6 id="not_all_available">
-          <%= t(:not_all_combinations_available) %>
+          <%= Spree.t(:not_all_combinations_available) %>
         </h6>
       <% end %>
     </div>
@@ -21,7 +21,7 @@
         <% partial_name = "spree/products/ad_hoc_options/#{option_type.name.gsub(/(-)|(\s)/,"_").downcase}" %>
 
         <% if lookup.exists?(partial_name, nil, true) %>
-          <div class='col-sm-6'>
+          <div class='col-sm-<%= Spree.t(:variant_col_size) %>'>
           <%= render partial: partial_name, locals: {option_type: ad_hoc_option_type, class_str: class_str} %>
           </div>
         <% else %>
@@ -29,7 +29,7 @@
             <% select_opts = { class: "#{class_str} form-control" } %>
             <% select_opts[:prompt] = 'None' if ad_hoc_option_type.option_values.size > 1 && ad_hoc_option_type.option_values.none? {|option_value| option_value.selected? }%>
             <% selected_option_value = ad_hoc_option_type.option_values.detect {|option_value| option_value.selected? } %>
-            <div class="col-md-6 form-group">
+            <div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
               <h5 class='presentation-for-ad-hoc-option-value'><%= option_type.presentation %>: </h5>
               <div class='form-for-ad-hoc-option-value'>
                 <%= select_tag "ad_hoc_option_values[#{ad_hoc_option_type.id}]",options_for_select(ad_hoc_option_value_options(ad_hoc_option_type.option_values), selected_option_value.present? ? selected_option_value.id.to_s : nil), select_opts %>

@@ -26,7 +26,6 @@ describe 'Product Customizations', js: true do
 
       click_on('Add Product Customization Type')
       find('.icon.icon-add').click
-      save_and_open_screenshot
       expect(all('#selected-customization-types tbody tr').length).to eq(1)
 
       #test remove
