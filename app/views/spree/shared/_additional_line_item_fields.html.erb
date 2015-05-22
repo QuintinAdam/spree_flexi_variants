@@ -16,7 +16,7 @@
               <%= render partial: "spree/orders/custom_fields/#{partial}", locals: {option: option} %>
             <% else %>
               <% if option.customization_image? %>
-                <li><%= image_tag(option.customization_image.thumb.url) %></li>
+                <li><%= link_to image_tag(option.customization_image.thumb.url), option.customization_image.url, target: '_blank' %></li>
               <% else %>
                 <li class='customized_option'><b><%= option.customizable_product_option.presentation %>:</b> <%= option.value %></li>
               <% end %>
