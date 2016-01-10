@@ -20,7 +20,7 @@ Use these when you want the ability to provide a highly customized product e.g. 
 
 The branch spree-3-0-stable is an somewhat stable version for spree 3.0.0 with updated styles to match.
 
-Working with a older spree? Check out the original gem or many one of the forks. https://github.com/jsqu99/spree_flexi_variants
+Working with a older spree? Check out the original gem or one of the many forks. https://github.com/jsqu99/spree_flexi_variants
 
 ##Installation
 
@@ -35,7 +35,7 @@ Working with a older spree? Check out the original gem or many one of the forks.
 
 Build a 'Cake'  product using **Ad Hoc Options** and **Product Customizations**
 
-![Cake](https://raw.github.com/jsqu99/spree_flexi_variants/master/doc/cake_screenshot.png)
+![Cake](https://raw.github.com/QuintinAdam/spree_flexi_variants/master/doc/custom_cake.png)
 
 Build a 'Necklace'  product using **Ad Hoc Options** and **Product Customizations**
 
