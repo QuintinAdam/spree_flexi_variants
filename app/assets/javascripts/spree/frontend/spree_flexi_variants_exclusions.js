@@ -254,8 +254,9 @@ $(document).ready(function() {
       });
 
       // restore the previously selected value, if it exists
-
-      $(current_target).find('option[value='+current_target_option+']').attr('selected', 'selected');
+      if(current_target_option!=''){
+        $(current_target).find('option[value='+current_target_option+']').attr('selected', 'selected');
+      }
     }); //  .not().each()
   }); // .change()
 }); // ready
