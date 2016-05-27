@@ -1,11 +1,11 @@
 <%# TODO Change icons %>
 <%= content_tag :li, class: ('active' if current == 'Ad Hoc Option Types') do %>
-  <%= link_to_with_icon  'flash', t(:ad_hoc_option_types), spree.selected_admin_product_ad_hoc_option_types_url(@product) %>
+  <%= link_to_with_icon  'flash', Spree.t(:ad_hoc_option_types), spree.selected_admin_product_ad_hoc_option_types_url(@product) %>
 <% end if can?(:admin, Spree::Product) %>
 <%= content_tag :li, class: ('active' if current == 'Ad Hoc Variant Exclusions') do %>
-  <%= link_to_with_icon  'asterisk', t(:ad_hoc_variant_exclusions), spree.admin_product_ad_hoc_variant_exclusions_url(@product) %>
+  <%= link_to_with_icon  'asterisk', Spree.t(:ad_hoc_variant_exclusions), spree.admin_product_ad_hoc_variant_exclusions_url(@product) %>
 <% end if can?(:admin, Spree::Product) %>
 <%= content_tag :li, class: ('active' if current == 'Product Customization Types') do %>
-  <%= link_to_with_icon  'list-alt', t(:product_customization_types), spree.selected_admin_product_product_customization_types_url(@product) %>
+  <%= link_to_with_icon  'list-alt', Spree.t(:product_customization_types), spree.selected_admin_product_product_customization_types_url(@product) %>
 <% end if can?(:admin, Spree::Product) %>
 

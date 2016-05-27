@@ -22,18 +22,16 @@
   <% end %>
 <% end %>
 
-<div class="col-md-6 form-group">
+<div class="col-md-<%= Spree.t(:variant_col_size) %> form-group">
   <% option = product_customization_type.customizable_product_options.first %>
-  <fieldset>
-    <p><%= product_customization_type.description  %></p>
-    <h5><%= option.presentation %></h5>
-    <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
-    <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: width_dom_id, class: "customization form-control", placeholder: option.description %>
-    <% option = product_customization_type.customizable_product_options.second %>
-    <h5><%= option.presentation %></h5>
-    <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: height_dom_id, class: "customization form-control", placeholder: option.description %>
-    <%# the price is stored here on change, and later collected by the product-wide updatePrice() %>
-    <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
-  </fieldset>
+  <p><%= product_customization_type.description  %></p>
+  <h5><%= option.presentation %></h5>
+  <% # create a slightly shorter dom_id field below.  I wish I could make use of dom_id for all strings that had [ && ] %>
+  <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: width_dom_id, class: "customization form-control", placeholder: option.description %>
+  <% option = product_customization_type.customizable_product_options.second %>
+  <h5><%= option.presentation %></h5>
+  <%= text_field_tag "#{param_prefix}[#{option.id}]", "", id: height_dom_id, class: "customization form-control", placeholder: option.description %>
+  <%# the price is stored here on change, and later collected by the product-wide updatePrice() %>
+  <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
 </div>
 

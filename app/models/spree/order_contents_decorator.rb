@@ -13,7 +13,7 @@ module Spree
         opts = { currency: order.currency }.merge ActionController::Parameters.new(options).permit(PermittedAttributes.line_item_attributes)
         line_item = order.line_items.new(quantity: quantity, variant: variant, options: opts)
 
-        product_customizations_values = options[:product_customizations]
+        product_customizations_values = options[:product_customizations] || []
         line_item.product_customizations = product_customizations_values
         product_customizations_values.each { |product_customization| product_customization.line_item = line_item }
         product_customizations_values.map(&:save) # it is now safe to save the customizations we built

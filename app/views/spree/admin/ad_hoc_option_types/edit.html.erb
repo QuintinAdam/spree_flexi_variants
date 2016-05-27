@@ -1,4 +1,4 @@
-<% content_for(:page_title, "#{t('editing_option_type')} \"#{@ad_hoc_option_type.option_type.presentation}\"") %>
+<% content_for(:page_title, "#{Spree.t('editing_option_type')} \"#{@ad_hoc_option_type.option_type.presentation}\"") %>
 
 <%= render 'spree/admin/shared/error_messages', target: @ad_hoc_option_type %>
 
@@ -6,7 +6,7 @@
   <fieldset>
     <%= render partial: "form", locals: { f: f } %>
 
-    <h3><%= t("option_values") %></h3>
+    <h3><%= Spree.t("option_values") %></h3>
     <table class="index sortable table" id='ad_hoc_option_type' data-sortable-link="<%= update_positions_admin_ad_hoc_option_type_ad_hoc_option_values_url(@ad_hoc_option_type) %>" data-hook>
       <thead>
         <tr data-hook="ad_hoc_option_type_header">

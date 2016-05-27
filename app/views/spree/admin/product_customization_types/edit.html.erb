@@ -24,13 +24,13 @@
   <fieldset>
     <%= render partial: "form", locals: { f: f } %>
 
-    <h3><%= t("customizable_product_options") %></h3>
+    <h3><%= Spree.t("customizable_product_options") %></h3>
     <table class="table index" id='customizable_product_options' data-hook>
       <thead>
         <tr data-hook="customizable_product_options_header">
-          <th><%= t("name") %><span class="required">*</span></th>
-          <th><%= t("presentation") %><span class="required">*</span></th>
-          <th><%= t("description") %></th>
+          <th><%= Spree.t("name") %><span class="required">*</span></th>
+          <th><%= Spree.t("presentation") %><span class="required">*</span></th>
+          <th><%= Spree.t("description") %></th>
           <th class="actions"></th>
         </tr>
       </thead>

@@ -5,20 +5,20 @@
       <td><%= ahot.option_type.presentation %></td>
       <td><%= ahot.is_required %></td>
       <td class="actions">
-      <%= link_to_with_icon 'delete',  t("remove"), remove_admin_ad_hoc_option_type_url(ahot) %>
+      <%= link_to_with_icon 'delete',  Spree.t("remove"), remove_admin_ad_hoc_option_type_url(ahot) %>
       </td>
     </tr>
 
 
     <tr>
       <td colspan="4">
-        <h3><%= t("option_values") %></h3>
+        <h3><%= Spree.t("option_values") %></h3>
         <table class="index">
           <thead>
             <tr>
-              <th><%= t("name") %></th>
-              <th><%= t("display") %></th>
-              <th><%= t("price_modifier") %></th>
+              <th><%= Spree.t("name") %></th>
+              <th><%= Spree.t("display") %></th>
+              <th><%= Spree.t("price_modifier") %></th>
               <th></th>
             </tr>
           </thead>
@@ -32,8 +32,8 @@
     </tr>
 
     <p class="form-buttons">
-      <%= button t("update") %>
-      <%= t("or") %> <%= link_to t("cancel"), selected_admin_ad_hoc_option_types_url(@product) %>
+      <%= button Spree.t("update") %>
+      <%= Spree.t("or") %> <%= link_to Spree.t("cancel"), selected_admin_ad_hoc_option_types_url(@product) %>
     </p>
 
 <% end %>

@@ -1,6 +1,6 @@
 Deface::Override.new(
-  virtual_path: "spree/admin/orders/_line_item",
-  name: "converted_admin_order_form_line_item_row_459848395",
-  replace: "[data-hook='admin_order_form_line_item_row'], #admin_order_form_line_item_row[data-hook]",
-  partial: "spree/admin/orders/admin_order_form_line_item_row"
+  virtual_path: "spree/admin/orders/_line_items",
+  name: "add_additional_line_item_fields_partial_to_admin_order_view",
+  insert_bottom: ".line-item-name",
+  text: "<%= render partial: 'spree/shared/additional_line_item_fields', locals: {item: item} %>"
 )

@@ -39,7 +39,7 @@ module Spree
     def remove
       @product.product_customization_types.delete(@product_customization_type)
       @product.save
-      flash.notice = I18n.t("notice_messages.product_customization_type_removed")
+      flash.notice = I18n.t("spree.notice_messages.product_customization_type_removed")
       redirect_to selected_admin_product_product_customization_types_url(@product)
     end
 

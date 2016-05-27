@@ -54,6 +54,26 @@ module Spree
     # end
 
     def merge!(order, user = nil)
+      # this is bad, but better than before
+      order.line_items.each do |other_order_line_item|
+        next unless other_order_line_item.currency == currency
+
+        # Compare the line items of the other order with mine.
+        # Make sure you allow any extensions to chime in on whether or
+        # not the extension-specific parts of the line item match
+        current_line_item = self.line_items.detect do |my_li|
+          my_li.variant == other_order_line_item.variant && self.line_item_comparison_hooks.all? do |hook|
+            self.send(hook, my_li, other_order_line_item.serializable_hash)
+          end
+        end
+        if current_line_item
+          current_line_item.quantity += other_order_line_item.quantity
+          current_line_item.save!
+        else
+          other_order_line_item.order_id = self.id
+          other_order_line_item.save!
+        end
+      end
       order.line_items.each do |line_item|
         self.add_variant(line_item.variant, line_item.quantity, {
           ad_hoc_option_values: line_item.ad_hoc_option_value_ids,
@@ -62,6 +82,10 @@ module Spree
       end
 
       self.associate_user!(user) if !self.user && !user.blank?
+
+      updater.update_item_count
+      updater.update_item_total
+      updater.persist_totals
 
       # So that the destroy doesn't take out line items which may have been re-assigned
       order.line_items.reload

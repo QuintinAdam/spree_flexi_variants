@@ -18,7 +18,7 @@ module Spree
     def destroy
       @product=@ad_hoc_variant_exclusion.product
       @ad_hoc_variant_exclusion.destroy
-      redirect_to admin_product_ad_hoc_variant_exclusions_path(@product), notice: I18n.t("notice_messages.ad_hoc_variant_exclusion_removed")
+      redirect_to admin_product_ad_hoc_variant_exclusions_path(@product), notice: I18n.t("spree.notice_messages.ad_hoc_variant_exclusion_removed")
     end
 
     private
