@@ -2,7 +2,6 @@
 
 You can easily modify the way the **Ad Hoc Options** are displayed by creating partials based on the option type name.
 
-
 ### Simple Ad Hoc Options Example
 
 Let's create an imaginary product called 'Spap'.  It has two option types - sizes and colors.  All the sizes alter the price, but none of the colors do.
