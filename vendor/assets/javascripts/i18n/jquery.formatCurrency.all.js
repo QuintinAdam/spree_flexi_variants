@@ -1914,4 +1914,46 @@
 		groupDigits: true
 	};
 
+	// Create a map of currencies to regions where there would be ambiguity because
+	// the currency is shared by varying locales/regions. Canadian dolalrs, Swiss
+	// Francs, and Euros are prime examples.
+	$.formatCurrency.currencyRegionMap = {
+		'CAD': 'en-CA',
+		'CHF': 'de-CH',
+		'EUR': 'de-DE',
+		'GBP': 'en-GB',
+		'HKD': 'en-HK',
+		'NOK': 'nb-NO',
+		'SEK': 'sv-SE',
+		'SGD': 'en-SG',
+		'USD': 'en'
+	};
+
+	$.formatCurrency.getRegionFromCurrency = function(currency) {
+		currency = currency.toUpperCase();
+
+		// First, see if there's an explicit mapping of a currency to a region/locale
+		var region = $.formatCurrency.currencyRegionMap[currency];
+		if (region) {
+			return region;
+		}
+
+		// Next, try to find a region based on the code shared by the currency and region.
+		// For example DK is the country code for Denmark and found in DKK and da-DK
+		// Note that we're using shift() to pick the first region detected. In cases
+		// where there are multiple matches this may not be desirable. Add an explicit
+		// mapping to the currencyRegionMap in such cases. Ex) cy-GB would come before en-GB
+		var countryCode = currency.substring(0, 2);
+		region = $.grep(Object.keys($.formatCurrency.regions), function(code) {
+			return code.split('-')[1] == countryCode;
+		}).shift();
+
+		if (region) {
+			return region;
+		}
+
+		// Finally, give up and use English...
+		return 'en';
+	};
+
 })(jQuery);
