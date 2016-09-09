@@ -2,7 +2,7 @@
 //= require i18n/jquery.formatCurrency.all
 //= require_self
 
-$(function () {
+Spree.ready(function () {
   // set up the 'reset' functionality on file uploads
   $("#cart-form form input[type=file]").each(function () {
   // make a clone of the original in case the user wants to undo an upload

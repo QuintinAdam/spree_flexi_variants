@@ -7,7 +7,7 @@
 
   <%# add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
-  <%= content_for :head do %>
+  <%= content_for :flexi_variants_body_js do %>
     <%= javascript_tag do %>
       $(document).on('keyup', '#<%= cust_dom_id %>', function(e) {
 
@@ -34,4 +34,3 @@
     <%= hidden_field_tag "customization_price", "0", class: "customization_price" %>
   </div>
 </div>
-
