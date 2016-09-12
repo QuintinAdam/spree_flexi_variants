@@ -3,7 +3,7 @@
 <%= render partial: "spree/products/customizations/calculator/#{calculator_name(product_customization_type)}", locals: {calculator: product_customization_type.calculator} %>
 <%# add the 'change' listener for this particular file input, which will make use of the calculator above %>
 
-<%= content_for :head do %>
+<%= content_for :flexi_variants_body_js do %>
   <%= javascript_tag do %>
     $(document).on('change', '#<%= cust_dom_id %>', function(e) {
 
@@ -43,4 +43,3 @@ $("#myform").validate({
   }
 });
 -->
-

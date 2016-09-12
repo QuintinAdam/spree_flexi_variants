@@ -1,5 +1,5 @@
 <% if SpreeFlexiVariants::Config[:use_javascript_pricing_updates] %>
-  <%= content_for :head do %>
+  <%= content_for :flexi_variants_body_js do %>
     <%# didn't use javascript_tag here so we don't confuse deface %>
     <script type="text/javascript">
       //<![CDATA[
@@ -37,7 +37,7 @@
         };
       })();
 
-      $(function() {
+      Spree.ready(function() {
 
         // watch for variant changes
         $("#product-variants input[type='radio']").change(function() {
@@ -52,7 +52,9 @@
           updatePrice();
         });
 
-        updatePrice(); // set the initial price
+        if ($('.ad-hoc-option-select').length) {
+          updatePrice(); // set the initial price
+        }
       }); // ready
 
     // stolen from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric
@@ -113,7 +115,6 @@
 
       return price;
     }
-
 
     function updatePrice() {
       var cur_variant_price_diff = compute_variant_price_diff(base_price);
