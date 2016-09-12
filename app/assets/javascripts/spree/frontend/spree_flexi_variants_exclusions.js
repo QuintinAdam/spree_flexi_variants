@@ -186,7 +186,7 @@ function possibleCombinations (options) {
 }
 
 
-$(document).ready(function() {
+Spree.ready(function() {
   // initialize all the 'options'
   $('select.ad_hoc').each(function() {
     var options = [];
