@@ -45,13 +45,15 @@ module Spree
     # I think the new line_item_options_match will cover this
     # https://github.com/spree/spree/blob/625b42ecc2c3d5c6d0ec463a8f718ce16b80d89a/core/app/models/spree/order.rb#L265
 
-    # def find_line_item_by_variant(variant, options = {})
-    #   line_items.detect do |li|
-    #     li.variant_id == variant.id &&
-    #       matching_configurations(li.ad_hoc_option_values,ad_hoc_option_value_ids) &&
-    #       matching_customizations(li.product_customizations,product_customizations)
-    #   end
-    # end
+    def find_line_item_by_variant(variant, options = {})
+      ad_hoc_option_value_ids = ( !!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [] )
+      product_customizations = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
+      line_items.detect do |li|
+        li.variant_id == variant.id &&
+           matching_configurations(li.ad_hoc_option_values, ad_hoc_option_value_ids) &&
+           matching_customizations(li.product_customizations, product_customizations)
+      end
+    end
 
     def merge!(order, user = nil)
       # this is bad, but better than before
@@ -103,27 +105,27 @@ module Spree
     #   Set.new pairs
     # end
 
-    # def matching_configurations(existing_povs,new_povs)
-    #   # if there aren't any povs, there's a 'match'
-    #   return true if existing_povs.empty? && new_povs.empty?
+    def matching_configurations(existing_povs, new_povs)
+      # if there aren't any povs, there's a 'match'
+      return true if existing_povs.empty? && new_povs.empty?
 
-    #   existing_povs.map(&:id).sort == new_povs.map(&:to_i).sort
-    # end
+      existing_povs.map(&:id).sort == new_povs.map(&:to_i).sort
+    end
 
-    # def matching_customizations(existing_customizations,new_customizations)
+    def matching_customizations(existing_customizations, new_customizations)
 
-    #   # if there aren't any customizations, there's a 'match'
-    #   return true if existing_customizations.empty? && new_customizations.empty?
+      # if there aren't any customizations, there's a 'match'
+      return true if existing_customizations.empty? && new_customizations.empty?
 
-    #   # exact match of all customization types?
-    #   return false unless existing_customizations.map(&:product_customization_type_id).sort == new_customizations.map(&:product_customization_type_id).sort
+      # exact match of all customization types?
+      return false unless existing_customizations.map(&:product_customization_type_id).sort == new_customizations.map(&:product_customization_type_id).sort
 
-    #   # get a list of [customizable_product_option.id,value] pairs
-    #   existing_vals = customization_pairs existing_customizations
-    #   new_vals      = customization_pairs new_customizations
+      # get a list of [customizable_product_option.id,value] pairs
+      existing_vals = customization_pairs existing_customizations
+      new_vals      = customization_pairs new_customizations
 
-    #   # do a set-compare here
-    #   existing_vals == new_vals
-    # end
+      # do a set-compare here
+      existing_vals == new_vals
+    end
   end
 end
