@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_flexi_variants'
-  s.version     = '3.1.0'
+  s.version     = '3.2.0'
   s.summary     = 'This is a spree extension that solves two use cases related to variants.'
   s.description = 'Spree extension to create product variants as-needed'
   s.required_ruby_version = '>= 2.0.0'

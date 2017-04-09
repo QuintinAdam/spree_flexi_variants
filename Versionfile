@@ -10,8 +10,9 @@
 #
 # if your are on spree 0.60, try spree-0-60-stable, and if that isn't working, try pre-deface-stable.
 #
-"3.1.x" => { branch: "master" }
-"3.1.x" => { branch: "spree-3-1-experimental" }
+"3.2.x" => { branch: "master" }
+"3.1.x" => { branch: "spree-3-2-stable" }
+"3.1.x" => { branch: "spree-3-1-stable" }
 "3.0.x" => { branch: "spree-3-0-stable" }
 "2.4.x" => { branch: "spree-2-4-stable" }
 "2.2.x" => { branch: "spree-2-2-stable" }
