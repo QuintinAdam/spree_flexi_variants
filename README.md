@@ -18,7 +18,7 @@ Use these when you want the ability to provide a highly customized product e.g. 
 
 The branch spree-3-3 version for spree 3.3.0
 
-The branch spree-3-2-stable version for spree 3.2.0
+The branch spree-3-2 version for spree 3.2.0
 
 The branch spree-3-1-stable version for spree 3.1.0
 
@@ -28,12 +28,13 @@ Working with a older spree? Check out the original gem or one of the many forks.
 
 ## Installation
 
-    # see the notes in Versionfile if you are using an older version of spree
-    gem 'spree_flexi_variants', github: 'QuintinAdam/spree_flexi_variants', branch: 'spree-3-3'
+### See the notes in Versionfile if you are using an older version of spree
 
-    bundle install
+`gem 'spree_flexi_variants', github: 'QuintinAdam/spree_flexi_variants', branch: 'spree-3-3'`
 
-    bundle exec rails g spree_flexi_variants:install
+`bundle install`
+
+`bundle exec rails g spree_flexi_variants:install`
 
 ## Examples
 
