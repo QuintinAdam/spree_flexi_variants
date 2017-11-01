@@ -1,6 +1,7 @@
 ---
 ru:
   spree:
+    variant_col_size: 12
     required: "Требуется?"
     price_modifier: "Цена корректировки"
     price_modifier_type: "Какаую стратегию модификатора цены использовать для опции этого типа?"
@@ -8,7 +9,7 @@ ru:
     edit_option_values: "Изменить значения опции"
     notice_messages:
       option_value_removed: "Значение опции удалено"
-      option_type_removed: "Значение опции удалено" # translate value to type
+      option_type_removed: "Тип опции удален"
       product_customization_type_removed: "Типа настройки товара удалён"
       ad_hoc_variant_exclusion_removed: "Исключение удалено"
     ad_hoc_variant_exclusion: 'Специальный вариант исключения'
@@ -24,6 +25,7 @@ ru:
     add_product_customization_types: 'Добавить типы настройки товара'
     add_customizable_product_option: 'Добавить настраиваемый вариант'
     editing_product_customization_type: 'Изменить тип настройки товара'
+    editing_option_type: "Редактировать опции типа"
     form_label: 'HTML метка формы'
     data_type: 'Тип данных (для проверки ввода)'
     default_value: 'Значение по умолчанию'
@@ -44,5 +46,8 @@ ru:
     min_pricing_area: "Мин. область цены (возможно, имеет меньшую область, но будет стоить как если бы в этой области)"
     not_all_combinations_available: "Обратите внимание, что не все комбинации опции доступны"
     select_variant_options: 'Опции'
+    customizations: 'Настройки'
     customize: 'Настроить'
     reset: 'Сброс'
+    position_within_product: 'Порядок отображения относительно других специальных параметров (сначала отображаются меньшие номера)'
+    selected_by_default: 'Выбрать по умолчанию?'
