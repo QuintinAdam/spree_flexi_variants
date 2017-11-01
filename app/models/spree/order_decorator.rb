@@ -11,9 +11,9 @@ module Spree
       else
         current_item = LineItem.new(quantity: quantity, variant: variant, options: options)
 
-        product_customizations_ids = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
+        product_customizations_ids = (!!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [])
         product_customizations_values = product_customizations_ids.map do |cid|
-            ProductCustomization.find(product_customization_type_id: cid)
+          ProductCustomization.find(product_customization_type_id: cid)
         end
         current_item.product_customizations = product_customizations_values
         product_customizations_values.each { |product_customization| product_customization.line_item = current_item }
@@ -21,7 +21,7 @@ module Spree
 
         # find, and add the configurations, if any.  these have not been fetched from the db yet.              line_items.first.variant_id
         # we postponed it (performance reasons) until we actually knew we needed them
-        ad_hoc_option_value_ids = ( !!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [] )
+        ad_hoc_option_value_ids = (!!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [])
         product_option_values = ad_hoc_option_value_ids.map do |cid|
           AdHocOptionValue.find(cid)
         end
@@ -58,7 +58,7 @@ module Spree
     def merge!(order, user = nil)
       # this is bad, but better than before
       order.line_items.each do |other_order_line_item|
-        next unless other_order_line_item.currency == currency
+        next unless other_order_line_item.currency == order.currency
 
         # Compare the line items of the other order with mine.
         # Make sure you allow any extensions to chime in on whether or

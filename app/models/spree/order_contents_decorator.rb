@@ -2,20 +2,22 @@ module Spree
   OrderContents.class_eval do
 
     private
-    #this whole thing needs a refactor!
+
+    # this whole thing needs a refactor!
 
     def add_to_line_item(variant, quantity, options = {})
       line_item = grab_line_item_by_variant(variant, false, options)
       if line_item
         line_item.quantity += quantity.to_i
-        line_item.currency = currency unless currency.nil?
+        line_item.currency = order.currency unless currency.nil?
       else
         options_params = options.is_a?(ActionController::Parameters) ? options : ActionController::Parameters.new(options.to_h)
-        opts = options_params.
-          permit(PermittedAttributes.line_item_attributes).to_h.
-          merge(currency: order.currency)
+        opts = options_params.permit(PermittedAttributes.line_item_attributes).to_h
+                             .merge(currency: order.currency)
 
-        line_item = order.line_items.new(quantity: quantity, variant: variant, options: opts)
+        line_item = order.line_items.new(quantity: quantity,
+                                         variant: variant,
+                                         options: opts)
 
         product_customizations_values = options[:product_customizations] || []
         line_item.product_customizations = product_customizations_values
@@ -32,9 +34,9 @@ module Spree
 
         offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations_values.map {|product_customization| product_customization.price(variant)}.compact.sum
 
-        if currency
-          line_item.currency = currency unless currency.nil?
-          line_item.price    = variant.price_in(currency).amount + offset_price
+        if order.currency
+          line_item.currency = order.currency unless currency.nil?
+          line_item.price    = variant.price_in(order.currency).amount + offset_price
         else
           line_item.price    = variant.price + offset_price
         end

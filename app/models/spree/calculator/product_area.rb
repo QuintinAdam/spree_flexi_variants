@@ -19,7 +19,7 @@ module Spree
     #  preference :granularity, :string, default: 'eighths'
 
     def self.description
-      "Product Area Calculator"
+      'Product Area Calculator'
     end
 
     def self.register
@@ -39,7 +39,8 @@ module Spree
     def compute(product_customization, variant=nil)
       return 0 unless valid_configuration? product_customization
 
-      width,height = get_option(product_customization, "width"), get_option(product_customization, "height")
+      width  = get_option(product_customization, "width")
+      height = get_option(product_customization, "height")
 
       # here's the custom logic for this calculator:  min total width + height = 20.
       [(width.value.to_f * height.value.to_f), (preferred_min_pricing_area || 0)].max * preferred_multiplier
@@ -59,14 +60,13 @@ module Spree
       #    return has_inputs && width && height && (width.value.to_f * height.value.to_f) >= preferred_min_area
 
       #    rescue false
-      return true
+      true
     end
-
 
     private
-    def get_option(product_customization, name)
-      product_customization.customized_product_options.detect {|cpo| cpo.customizable_product_option.name == name }
-    end
 
+    def get_option(product_customization, name)
+      product_customization.customized_product_options.detect { |cpo| cpo.customizable_product_option.name == name }
+    end
   end
 end
