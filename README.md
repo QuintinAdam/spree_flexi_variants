@@ -25,7 +25,7 @@ Working with a older spree? Check out the original gem or one of the many forks.
 ## Installation
 
     # see the notes in Versionfile if you are using an older version of spree
-    gem 'spree_flexi_variants', github: 'QuintinAdam/spree_flexi_variants', branch: '3-0-stable'
+    gem 'spree_flexi_variants', github: 'medaved/spree_flexi_variants', branch: 'multi_currency'
 
     bundle install
 
