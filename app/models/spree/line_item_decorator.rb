@@ -8,7 +8,7 @@ module Spree
       str = Array.new
       unless self.ad_hoc_option_values.empty?
 
-        #TODO: group multi-select options (e.g. toppings)
+        # TODO: group multi-select options (e.g. toppings)
         str << self.ad_hoc_option_values.each { |pov|
           "#{pov.option_value.option_type.presentation} = #{pov.option_value.presentation}"
         }.join(',')
@@ -16,7 +16,7 @@ module Spree
 
       unless self.product_customizations.empty?
         self.product_customizations.each do |customization|
-          price_adjustment = (customization.price == 0) ? "" : " (#{Spree::Money.new(customization.price).to_s})"
+          price_adjustment = (customization.price == 0) ? '' : " (#{Spree::Money.new(customization.price).to_s})"
           str << "#{customization.product_customization_type.presentation}#{price_adjustment}"
           customization.customized_product_options.each do |option|
             next if option.empty?
