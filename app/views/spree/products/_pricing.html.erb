@@ -123,7 +123,9 @@
       var cur_price = base_price + cur_variant_price_diff + cur_configuration_price + cur_customization_price;
 
       var region = $.formatCurrency.getRegionFromCurrency("<%= @product.currency %>");
-      $('.price.selling').text(cur_price.toFixed(2)).formatCurrency({region: region});
+      var defaultOptions = <%= raw SpreeFlexiVariants::Config[:format_currency_options].to_json %>
+      var formatOptions = Object.assign({region: region}, defaultOptions)
+      $('.price.selling').text(cur_price.toFixed(2)).formatCurrency(formatOptions);
     }
 
     //]]>
